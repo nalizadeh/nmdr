@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrLayout</title>
+
+<style type="text/css">
+body, html { height: 100%; }
+* {padding:0; margin:0; }
+
+table { border-collapse: collapse; background:#fff; }
+.htd { height:22px; background:#eee; text-align:center; }
+
+</style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+
+function grids() {
+	nmdr.loadModule("layout", function () {
+		makeGrid1("Grid1");
+		makeGrid2("Grid2");
+	});
+}
+
+function makeGrid1(id) {
+ 
+	nmdr.layout(id).init(
+	{
+		padding: 2,
+		bgColor: "#ddd",		
+		showGrids: true,
+		
+		rows: [
+			{nr:1, sh:"22px"},
+			{nr:2, sh:"22px"},
+			{nr:3, sh:"22px"},
+			{nr:4, sh:"22px"},
+			{nr:5, sh:"22px"},
+			{nr:6, sh:"auto"},
+			{nr:7, sh:"28px"},
+		],
+		cols: [
+			{nr:1, sw:"100px"},
+			{nr:2, sw:"120px"},
+			{nr:3, sw:"100px"},
+			{nr:4, sw:"100px"},
+			{nr:5, sw:"auto"},
+			{nr:6, sw:"100px"},
+			{nr:7, sw:"100px"},			
+		],
+		comps: [
+			{id:"lb-workspace", row:2, col:1, valign:"center"},
+			{id:"in-workspace", row:2, col:2, colspan:2, rowspan:1},
+			{id:"lb-description", row:3, col:1},
+			{id:"in-description", row:3, col:2, colspan:3, rowspan:3},
+			{id:"bt-close", row:7, col:6},
+			{id:"bt-save", row:7, col:7},
+		]
+	});
+}
+
+function makeGrid2(id) {
+ 
+	nmdr.layout(id).init(
+	{
+		padding: 2,	
+		bgColor: "#ddd",		
+		showGrids: true,
+		
+		rows: [
+			{nr:1, sh:"22px"},
+			{nr:2, sh:"22px"},
+			{nr:3, sh:"52px"},
+			{nr:4, sh:"22px"},
+			{nr:5, sh:"22px"},
+			{nr:6, sh:"22px"},
+			{nr:7, sh:"22px"},
+			{nr:8, sh:"auto"},
+			{nr:9, sh:"28px"},
+		],
+		cols: [
+			{nr:1, sw:"100px"},
+			{nr:2, sw:"120px"},
+			{nr:3, sw:"100px"},
+			{nr:4, sw:"100px"},
+			{nr:5, sw:"auto"},
+			{nr:6, sw:"100px"},
+			{nr:7, sw:"100px"},			
+		],
+		comps: [
+			{id:"lb-workspace2", row:2, col:1, valign:"center"},
+			{id:"in-workspace2", row:2, col:2, colspan:3, rowspan:1},
+			{id:"lb-description2", row:3, col:1},
+			{id:"in-description2", row:3, col:2, colspan:4, rowspan:3},
+			{id:"lb-types2", row:6, col:1, valign:"center"},
+			{id:"in-types2", row:6, col:2, colspan:2},
+			{id:"lb-result", row:7, col:1, valign:"center"},
+			{id:"tb-result", row:7, col:2, colspan:6, rowspan:2},
+			{id:"bt-close2", row:9, col:6},
+			{id:"bt-save2", row:9, col:7},
+		]
+	});
+}
+
+</script> 
+
+</head>
+<body>
+
+<label id="lb-workspace">Workspace</label>
+<input id="in-workspace" name="workspace"/>
+
+<label id="lb-description">Description</label>
+<textarea id="in-description" name="description" rows="4" cols="20"></textarea>
+
+<button type="button" id="bt-close" onclick="handleClose(event)">Close</button>
+<button type="button" id="bt-save" onclick="handleSave(event)">Save</button>
+	
+<!--###############-->
+
+<label id="lb-workspace2">Workspace</label>
+<input id="in-workspace2" name="workspace2"/>
+	
+<label id="lb-description2">Description</label>
+<textarea id="in-description2" name="description2" rows="4" cols="20"></textarea>
+	
+<button type="button" id="bt-close2" onclick="handleClose(event)">Cancel</button>
+<button type="button" id="bt-save2" onclick="handleSave(event)">Save</button>
+
+<label id="lb-types2">Types</label>
+<input id="in-types2" name="types2" list="typelist"/>
+<datalist id="typelist">
+<option>String</option>
+<option>Boolean</option>
+<option>Integer</option>
+<option>Date</option>
+</datalist>
+
+<label id="lb-result">Result</label>
+<table id="tb-result" border="1" cellspacing="0" cellpadding="0" width="100%" height="100%">
+<tr>
+<td class="htd">A</td>
+<td class="htd">B</td>
+<td class="htd">C</td>
+<td class="htd">D</td>
+<td class="htd">E</td>
+<td class="htd">F</td>
+<td class="htd">G</td>
+<td class="htd">H</td>
+</tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+
+<!--###############-->
+
+<table width="90%" height="90%" border="1" cellpadding="0" cellspacing="0">
+	
+	<tr><td style="height:20px"></td><td></td></tr>
+	
+	<tr>
+		<td style="width:100px"></td>
+		<td style="height:230px">
+			<div style="position:relative;width:100%;height:100%;background:#eee">
+				<div id="Grid1" style="position:absolute;left:10px;top:10px;width:500px;height:200px;background:#eee"></div>
+			</div>
+		</td>
+	</tr>
+	
+	<tr><td style="height:20px"></td><td></td></tr>
+	
+	<tr>
+		<td style="width:100px"></td>
+		<td style="height:100%">
+			<div id="Grid2" style="position:relative;width:100%;height:100%;background:#eee;"></div>
+		</td>
+	</tr>
+	
+	<tr><td style="height:20px"></td><td></td></tr>
+	
+</table>
+
+</body>
+
+<script type="text/javascript">
+grids();
+</script>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits Absence</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+
+function makeRibbon(id) {
+
+	var xml = "<?xml version=\"1.0\"?>" +
+	"<Ribbon id='MyAbsence' title='My Absence Ribbon'>" +
+        "<TabGroup id='MyAbsenceTabGroup' color='#33AAFF'>" +
+		    "<Tab id='MyAbsenceTab' text='MEIN KALENDER'>"+
+			   "<Group id='RequestGroup' text='Antrag'>" +
+				    "<Button id='NewRequest' " +
+					        "text='Neuer Antrag' " +
+					        "tooltip='Neuer Antrag' " +
+					        "command='NewRequest' " +
+							"enabled='true' " +
+					        "size='32' " +
+							"width='50' " +
+					        "image='img/absence/NewRequest.png'>" +
+				    "</Button>" +
+				    "<Button id='EditRequest' " +
+					        "text='Antrag bearbeiten' " +
+					        "tooltip='Antrag bearbeiten' " +
+					        "command='EditRequest' " +
+							"enabled='false' " +
+					        "size='32' " +
+					        "image='img/absence/EditRequest.png'>" +
+				    "</Button>" +
+				    "<Button id='WithdrawRequest' " +
+					        "text='Antrag zurückziehen' " +
+					        "tooltip='Antrag zurückziehen' " +
+					        "command='WithdrawRequest' " +
+							"enabled='false' " +
+					        "size='32' " +
+					        "image='img/absence/WithdrawRequest.png'>" +
+				    "</Button>" +
+				    "<Button id='StartRequest' " +
+					        "text='Genehmigung anfordern' " +
+					        "tooltip='Genehmigung anfordern' " +
+					        "command='StartRequest' " +
+							"enabled='false' " +
+					        "size='32' " +
+					        "image='img/absence/StartRequest.png'>" +
+				    "</Button>" +
+				    "<Button id='ApproveRequest' " +
+					        "text='Genehmigen' " +
+					        "tooltip='Genehmigen' " +
+					        "command='ApproveRequest' " +
+							"enabled='false' " +
+					        "size='32' " +
+					        "image='img/absence/ApproveRequest.png'>" +
+				    "</Button>" +
+				    "<Button id='RejectRequest' " +
+					        "text='Ablehnen' " +
+					        "tooltip='Ablehnen' " +
+					        "command='RejectRequest' " +
+							"enabled='false' " +
+					        "size='32' " +
+					        "image='img/absence/RejectRequest.png'>" +
+				    "</Button>" +
+				"</Group>" +				
+			   "<Group id='DataGroup' text='Stammdaten'>" +
+				    "<Button id='ViewData' " +
+					        "text='Stammdaten anzeigen' " +
+					        "tooltip='Stammdaten anzeigen' " +
+					        "command='ViewData' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/absence/ViewData.png'>" +
+				    "</Button>" +
+				"</Group>" +				
+			   "<Group id='AbcenceQuote' text='Urlaubskontingent'>" +
+				    "<Button id='CuurrentYearView' " +
+					        "text='Aktuelles Jahr anzeigen' " +
+					        "tooltip='Aktuelles Jahr anzeigen' " +
+					        "command='CuurrentYearView' " +
+							"enabled='true' " +
+					        "size='32' " +
+							"width='78' " +
+					        "image='img/absence/ViewYear.png'>" +
+				    "</Button>" +
+				    "<Button id='NextYearView' " +
+					        "text='Nächstes Jahr anzeigen' " +
+					        "tooltip='Nächstes Jahr anzeigen' " +
+					        "command='NextYearView' " +
+							"enabled='true' " +
+					        "size='32' " +
+							"width='78' " +
+					        "image='img/absence/ViewYear.png'>" +
+				    "</Button>" +
+				"</Group>" +	
+			"</Tab>" +
+        "</TabGroup>" +
+        "<TabGroup id='DataTabGroup' color='orange'>" +
+		    "<Tab id='TeamTab' text='TEAM KALENDER'>"+
+			   "<Group id='TeamPlannenGruppe' text='Plannen'>" +
+				    "<Button id='TeamTermine' " +
+					        "text='Team anzeighen' " +
+					        "tooltip='Team anzeighen' " +
+					        "command='TerminOeffnen' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/absence/TeamView.png'>" +
+				    "</Button>" +
+               "</Group>" +				
+			"</Tab>" +
+        "</TabGroup>" +
+	"</Ribbon>";
+	
+	nmdr.ribbon(id).build(xml, 'de', 'img/').selectTab(1);
+}
+
+function makeCalendar(id) {
+
+	var ca = nmdr.calendar(id);
+
+    ca.renderCell = function (date) {
+        var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+        if (d==18 && m==4 && y==2015) {
+            return '<div style="width:100%;height:100%;background:orange;color:#000;"><span style="font-weight:normal">Termin 8:00 - 9:00 </span></div>';
+        }
+        if (d > 19 && d < 23 && m==4 && y==2015) {
+            return '<div style="width:100%;height:100%;background:#A9FF87;color:#000;"><span style="font-weight:normal">Urlaub</span></div>';
+        }
+        return '';
+    };
+
+	ca.handleUserEvent = function (date) {
+		nmdrDialog.alert(null, date.toString());
+	};
+
+	ca.init({date:new Date(), lang:"de", cellWidth:100, cellHeight:50});
+}
+
+function makeMeinAntraege(id) {
+	var tb = nmdr.table(id);
+ 
+	tb.prepareListData = function() {
+        var rowdata = [], s = this.props.dataSplitter, n = 0;
+        
+		rowdata[0] = s + "Gleitzeit" + s + "06.02.2015" + s + "abgelehnt " + s + "-";
+		rowdata[1] = s + "Urlaub" + s + "12.04.2015 - 24.04.2015" + s + "genehmigt " + s + "-";
+
+        var data =
+        {
+            columns: ["", "Art", "Zeitraum", "Status", "Historie"],
+            rows: rowdata
+        };
+        return data;
+	};
+	 
+	tb.init(
+		{
+			clientHandling: true,
+			imagePath: 'img/',
+			headerColor: 'rgb(119,119,119)',
+			headerFontFamily: 'Arial, Hetbetica, sans-serif',
+			headerFontWidth: 'bold',
+			headerFontSize: '14px',
+			showBorder: false,
+			showShadow: false,
+			showRowCommands: false,
+			footerShowGoPage: false,
+			footerShowRowCount: false,
+			footerShowPageInfo: false,
+		}
+	);
+}
+
+</script> 
+
+</head>
+<body style='padding:5px; margin:0px;'>
+
+<table width='100%' height='100%' border="0" cellpadding="10" cellspacing="0">
+	<tr>
+		<td colspan='2' style='height:32px;vertical-align:top;'>
+			<div id='RibbonDiv'></div>
+		</td>
+	</tr>
+
+	<tr><td colspan='2' style='height:100px;'></td></tr>
+	
+	<tr>
+		<td style='width:40%; vertical-align:top;'>
+			<span style='font:bold 18px "Segoe UI",Tahoma,Verdana,sans-serif'>Meine Anträge</span><br><br>
+			<div id='MeinAntraege'>
+				<script type="text/javascript"></script>
+			</div>
+		</td>
+
+		<td style='height:400px;vertical-align:top;padding-left:20px;'>
+			<div id='Calendar'></div>
+		</td>
+	</tr>
+
+</table>
+
+<script type="text/javascript">
+
+nmdr.loadModules(["ribbon", "calendar", "table"], function() {
+	makeRibbon('RibbonDiv');
+	makeMeinAntraege('MeinAntraege');
+	makeCalendar('Calendar');
+});
+
+</script>
+
+</body>
+
+</html>

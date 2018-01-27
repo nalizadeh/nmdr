@@ -1,0 +1,314 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrTable</title>
+
+<link rel="stylesheet" href="ht/highlight.css">
+<script src="ht/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<style type="text/css">
+.title-td {
+min-height: 40px;
+color: #fff;
+background: #000;
+font-family: Arial, Helvetica, sans-serif;
+font-width: normal;
+font-size: 16px;
+}
+</style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+
+function showTable2() { 
+	nmdr.core.dialog.showUrl('Customized nmdrTable', 'table2.html', 780, 620);
+} 
+
+function showTable3() {
+	nmdr.core.dialog.showUrl('Customized nmdrTable', 'table3.html', 800, 480);
+}
+
+function showTable4() {
+	nmdr.core.dialog.showUrl('Customized nmdrTable', 'table4.html', 1100, 500);
+}
+
+function makeTableA() {
+	nmdr.table('div-A').init();
+}
+
+function makeTableB() {
+	nmdr.table('div-B').init({
+		dummyCols: 12,
+		dummyRows: 1000,
+		showHeader: true,
+		showFooter: true
+	});
+}
+
+function makeTableC() {
+	var tb = nmdr.table('div-C');
+	tb.getColumnWidth = function(col) { return 120; };
+	tb.init(
+	{
+		dummyCols: 5,
+		dummyRows: 500,
+		showHeader: true,
+		showFooter: true,
+		showShadow: true,
+		showRowCommands: true,
+		menuColumn: 2,
+		rowLimit: 50,
+		sortingColumn: 3,
+		sortingDirection: 'SortZA',
+		showGrids: true,
+		scrollable: true,
+	});
+}
+
+function makeTableD() {
+	var tb = nmdr.table('div-D');
+	
+	tb.prepareData = function () {
+	
+		var rowdata = [], s = this.props.dataSplitter;
+		for (var i = 0; i < 400; i++) {
+			rowdata[i] = "Name " + i + s + "Adress " + i + s + "Email " + i + s + "Phone " + i;
+		}
+
+		return { columns: ["Name", "Adress", "Email", "Phone"], rows: rowdata };
+	};
+	
+	tb.init(
+	{
+		showHeader: true,
+		showFooter: true,
+		showShadow: true,
+		showRowCommands: true,
+		multiSelection: true,
+		menuColumn: 2,
+		sortingColumn: 3,
+		sortingDirection: tb.SORT_ASCENDING,
+		filters: { 0: 'contains&0', 3: 'contains&1' }
+	});
+}
+
+function makeTabsA() {
+	var tabs = nmdr.tabview('tabsa');
+	tabs.addTab("ttab1a", "Javascript");
+	tabs.addTab("ttab2a", "CSS");
+	tabs.addTab("ttab3a", "Html");
+	tabs.addTab("ttab4a", "Output", makeTableA);
+	tabs.build(120);
+}
+
+function makeTabsB() {
+	var tabs = nmdr.tabview('tabsb');
+	tabs.addTab("ttab1b", "Javascript");
+	tabs.addTab("ttab2b", "CSS");
+	tabs.addTab("ttab3b", "Html");
+	tabs.addTab("ttab4b", "Output", makeTableB);
+	tabs.build(120);
+}
+
+function makeTabsC() {
+	var tabs = nmdr.tabview('tabsc');
+	tabs.addTab("ttab1c", "Javascript");
+	tabs.addTab("ttab2c", "CSS");
+	tabs.addTab("ttab3c", "Html");
+	tabs.addTab("ttab4c", "Output", makeTableC);
+	tabs.build(120, null, 315);
+}
+
+function makeTabsD() {
+	var tabs = nmdr.tabview('tabsd');
+	tabs.addTab("ttab1d", "Javascript");
+	tabs.addTab("ttab2d", "CSS");
+	tabs.addTab("ttab3d", "Html");
+	tabs.addTab("ttab4d", "Output", makeTableD);
+	tabs.build(120);
+}
+
+</script>
+
+</head>
+<body>
+
+<table border="0" cellspacing="20px">
+	<!-- ########################################################################################### -->
+	<tr><td class="title-td"><span>Example 1 - with minimal configuration</span></td></tr>
+	<tr>
+		<td><div id="tabsa"></div></td>
+	</tr>
+
+	<!-- ########################################################################################### -->
+	<tr><td class="title-td"><span>Example 2 - with enabled header and footer</span></td></tr>
+	<tr>
+		<td><div id="tabsb"></div></td>
+	</tr>
+
+	<!-- ########################################################################################### -->
+	<tr><td class="title-td"><span>Example 3 - scrollable table with enabled context menu and row commands and predefined sorting column</span></td></tr>
+	<tr>
+		<td><div id="tabsc"></div></td>
+	</tr>
+	
+	<!-- ########################################################################################### -->
+	<tr><td class="title-td"><span>Example 4 - with user data and predefined sorting column, predefined multiple filtering </span></td></tr>
+	<tr>
+		<td><div id="tabsd"></div></td>
+	</tr>
+
+	<!-- ########################################################################################### -->
+	<tr><td class="title-td"><span>More complex examples...</span></td></tr>
+	<tr><td>
+			<button type="button" onclick="showTable2()">customized table...</button>
+			<button type="button" onclick="showTable3()">customized table...</button>
+			<button type="button" onclick="showTable4()">customized table...</button>
+		</td>
+	</tr>
+	
+	<!-- ########################################################################################### -->
+	<tr><td class="title-td"><span>That's all!</span></td></tr>
+</table>
+
+
+<!-- --------------------------------------------------------------- -->
+<div id="ttab1a">
+	<pre><code class="javascript">
+nmdr.table('div-A').init();
+	</code></pre>
+</div>
+<div id="ttab2a">
+	<pre><code class="language-css">
+ No CSS needed.
+	</code></pre>
+</div>
+<div id="ttab3a">
+	<pre><code class="language-html">
+ A div element with id = 'div-A'
+	</code></pre>
+</div>
+<div id="ttab4a">
+	<div id="div-A">	   
+	</div>
+</div>
+<!-- --------------------------------------------------------------- -->
+<div id="ttab1b">
+	<pre><code class="javascript">
+nmdr.table('div2').init({
+	dummyCols: 12,
+	dummyRows: 1000,
+	showHeader: true,
+	showFooter: true
+});
+	</code></pre>
+</div>
+<div id="ttab2b">
+	<pre><code class="language-css">
+ No CSS needed
+	</code></pre>
+</div>
+<div id="ttab3b">
+	<pre><code class="language-html">
+ A div element with id = 'div-B'
+	</code></pre>
+</div>
+<div id="ttab4b">
+	<div id="div-B">
+	</div>
+</div>
+<!-- --------------------------------------------------------------- -->
+<div id="ttab1c">
+	<pre><code class="javascript">
+var tb = nmdr.table('div-C');
+tb.getColumnWidth = function(col) { return 120; };
+tb.init(
+{
+	dummyCols: 5,
+	dummyRows: 500,
+	showHeader: true,
+	showFooter: true,
+	showShadow: true,
+	showRowCommands: true,
+	menuColumn: 2,
+	rowLimit: 50,
+	sortingColumn: 3,
+	sortingDirection: 'SortZA',
+	showGrids: true,
+	scrollable: true,
+});
+	</code></pre>
+</div>
+<div id="ttab2c">
+	<pre><code class="language-css">
+ No CSS needed
+	</code></pre>
+</div>
+<div id="ttab3c">
+	<pre><code class="language-html">
+ A div element with id = 'div-C'
+	</code></pre>
+</div>
+<div id="ttab4c">
+	<div id="div-C" style="height:280px;">
+	</div>
+</div>
+<!-- --------------------------------------------------------------- -->
+<div id="ttab1d">
+	<pre><code class="javascript">
+var tb = nmdr.table('div-D');
+
+tb.prepareData = function () {
+
+	var rowdata = [], s = this.props.dataSplitter;
+	for (var i = 0; i < 400; i++) {
+		rowdata[i] = "Name " + i + s + "Adress " + i + s + "Email " + i + s + "Phone " + i;
+	}
+
+	return { columns: ["Name", "Adress", "Email", "Phone"], rows: rowdata };
+};
+
+tb.init(
+{
+	showHeader: true,
+	showFooter: true,
+	showShadow: true,
+	showRowCommands: true,
+	multiSelection: true,
+	menuColumn: 2,
+	sortingColumn: 3,
+	sortingDirection: tb.SORT_ASCENDING,
+	filters: { 3: 'contains&0', 4: 'contains&1' }
+});
+	</code></pre>
+</div>
+<div id="ttab2d">
+	<pre><code class="language-css">
+ No CSS needed
+	</code></pre>
+</div>
+<div id="ttab3d">
+	<pre><code class="html">
+ A div element with id = 'div-D'
+	</div>
+	</code></pre>
+</div>
+<div id="ttab4d">
+	<div id="div-D">
+	</div>
+</div>
+<!-- --------------------------------------------------------------- -->
+
+<script type="text/javascript">
+	nmdr.loadModules(["table", "tabview"], function() {
+		makeTabsA();
+		makeTabsB();
+		makeTabsC();
+		makeTabsD();
+	});
+</script>
+
+</body>
+</html>

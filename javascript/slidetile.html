@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits SlideTile</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+</script> 
+
+</head>
+<body>
+<div id="XTILES1" style='position:absolute; left:20px; top:20px; width:600px; height:300px'>
+<script type="text/javascript">
+nmdr.loadModule("slideTile", function() {
+    var tiles = [
+        {
+            title: "Animals",
+            description: "These are some pics of animals.",
+            image: "album/animals.jpg",
+            url: "http://www.nalizadeh.com"
+        },
+        {
+            title: "Nature",
+            description: "These are some pics of nature.",
+            image: "album/nature.jpg",
+            url: "http://www.nalizadeh.com"
+        },
+		{
+		    title: "Flowers",
+		    description: "These are some flowers pics",
+		    image: "album/flowers.jpg",
+		    url: "http://www.nalizadeh.com"
+		},
+		{
+		    title: "Live",
+		    description: "These are some of around..",
+		    image: "album/live.jpg",
+		    url: "http://www.nalizadeh.com"
+		},
+		{
+		    title: "Bikes",
+		    description: "These are my bikes!",
+		    image: "album/bikes.jpg",
+		    url: "http://www.nalizadeh.com"
+		}
+    ];
+    nmdr.slideTile('XTILES1').init(tiles, 600, 450, 'img/');
+});
+</script>			   
+</div>
+
+</body>
+</html>
