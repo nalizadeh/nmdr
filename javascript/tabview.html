@@ -113,13 +113,13 @@ function makeCalendar3() {
 
 <script type="text/javascript">
 
-nmdr.loadModules(["tabview", "calendar", "phpCalendar", "multiSelect"], function() {
+nmdr.loadModules(["tabview", "calendar", "phpCalendar", "datetime", "multiSelect"], function() {
 	var tabs = nmdr.tabview('MyTabs');
 	tabs.addTab("tab1", "Calendar", makeCalendar1);
 	tabs.addTab("tab2", "Team Calendar", makeCalendar2);
 	tabs.addTab("tab3", "My Calendar", makeCalendar3);
 	tabs.addTab(null, "Tables", null, "table.html");
-	tabs.build(120);
+	tabs.build(null, 120);
 });
 
 </script>

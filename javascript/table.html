@@ -4,10 +4,25 @@
 <title>nmdrTable</title>
 
 <link rel="stylesheet" href="ht/highlight.css">
+
 <script src="ht/highlight.pack.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
 <style type="text/css">
+.exptitle {
+	height:200px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	color: #000;
+}
+
+.exptitle p {
+	font-size: 20px;
+}
+
 .title-td {
 min-height: 40px;
 color: #fff;
@@ -18,7 +33,6 @@ font-size: 16px;
 }
 </style>
 
-<script type="text/javascript" src="scripts/nmdr-min.js"></script>
 
 <script type="text/javascript">
 
@@ -100,7 +114,7 @@ function makeTabsA() {
 	tabs.addTab("ttab2a", "CSS");
 	tabs.addTab("ttab3a", "Html");
 	tabs.addTab("ttab4a", "Output", makeTableA);
-	tabs.build(120);
+	tabs.build(null, 120);
 }
 
 function makeTabsB() {
@@ -109,7 +123,7 @@ function makeTabsB() {
 	tabs.addTab("ttab2b", "CSS");
 	tabs.addTab("ttab3b", "Html");
 	tabs.addTab("ttab4b", "Output", makeTableB);
-	tabs.build(120);
+	tabs.build(null, 120);
 }
 
 function makeTabsC() {
@@ -118,7 +132,7 @@ function makeTabsC() {
 	tabs.addTab("ttab2c", "CSS");
 	tabs.addTab("ttab3c", "Html");
 	tabs.addTab("ttab4c", "Output", makeTableC);
-	tabs.build(120, null, 315);
+	tabs.build(null, 120, null, 315);
 }
 
 function makeTabsD() {
@@ -127,7 +141,7 @@ function makeTabsD() {
 	tabs.addTab("ttab2d", "CSS");
 	tabs.addTab("ttab3d", "Html");
 	tabs.addTab("ttab4d", "Output", makeTableD);
-	tabs.build(120);
+	tabs.build(null, 120);
 }
 
 </script>
@@ -136,6 +150,15 @@ function makeTabsD() {
 <body>
 
 <table border="0" cellspacing="20px">
+	<tr><td class="exptitle">
+		<p>nmdrTable</p>
+		<span>is a pure Javascript extension of the HTML table that provides full customizable solution for representing tabular data 
+		on the web. It is part of the nmdrUI framework and supports sorting, filtering and pagination. Each cell of header, footer and body is 
+		customizable with own rendering. The data of table can be loaded dynamically through Ajax calls, so any server-side technology 
+		including PHP, ASP, Perl, Java Servlets and JSP can be used. Take a look at examples below for a better insight.
+		</span>
+	</td></tr>
+
 	<!-- ########################################################################################### -->
 	<tr><td class="title-td"><span>Example 1 - with minimal configuration</span></td></tr>
 	<tr>
