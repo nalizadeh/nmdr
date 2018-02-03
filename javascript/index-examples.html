@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>nalizadeh.com</title>
+	<meta charset="utf-8"/>
+	<meta name="viewpover" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+	<link href="styles/nmdr.css" type="text/css" rel="stylesheet">
+	
+	<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+</head>
+
+<body>
+
+<div class="overlay" id="navi">
+	<div class="overlay-scr">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<div class="overlay-content">
+			<div class="overlay-menu">
+				<a id="ova1">nmdrDateTimePicker</a>
+				<a id="ova2">nmdrCalendar</a>
+				<a id="ova3">nmdrDialog</a>
+				<a id="ova4">nmdrTooltips</a>
+				<a id="ova5">nmdrTable</a>
+				<a id="ova6">nmdrTree</a>
+				<a id="ova7">nmdrMenu</a>
+				<a id="ova8">nmdrTabview</a>
+				<a id="ova9">nmdrClocks</a>
+				<a id="ova10">nmdrAccordion</a>
+				<a id="ova11">nmdrCarousel</a>
+				<a id="ova12">nmdrCommands</a>
+				<a id="ova13">nmdrRibbon</a>
+				<a id="ova14">nmdrTeaser</a>
+				<a id="ova15">nmdrFavorites</a>
+				<a id="ova16">nmdrTiles</a>
+				<a id="ova17">nmdrAlbum</a>
+				<a id="ova18">nmdrPixShow</a>
+				<a id="ova19">nmdrVideo</a>
+				<div id="ovaImg"></div>
+			</div>
+			<div class="overlay-footer">
+				<p class="copyright">
+					Design and coding by &nbsp;<a href="http://www.nalizadeh.com" title="Responsive framework">nalizadeh.com</a><br>
+					Copyright © 2018 nalizadeh.com<br>All rights reserved
+				</p>
+				<p class="social">
+					<span>Follow us</span>
+					<a class="facebook" href=""></a>
+					<a class="twitter" href=""></a>
+					<a class="google" href=""></a>
+					<a class="linkedin" href=""></a>
+					<a class="youtube" href=""></a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="header row">
+	<div class="header-left">
+		<a class="logo" href="index.html">nmdr.<br><span>Javascript UI Framework</span></a>
+	</div>
+	<div class="header-right">
+		<span class="menu-bt" onclick="openNav()">&#9776;</span>
+		<script>
+		function openNav() { document.getElementById("navi").style.width = "100%"; }
+		function closeNav() { document.getElementById("navi").style.width = "0%"; }
+		</script>
+	</div>
+</div>
+
+<div class="main">
+	<div class="row">
+		<div id="MyTabs" style="padding:10px; background:#ccc">
+		<script type="text/javascript">
+		
+			var pa = nmdr.core.utils.readQueryString();
+			
+			nmdr.loadModule("tabs", function() {
+				var tabs = nmdr.tabs('MyTabs');
+				var wb = ''; // 'http://localhost/';
+
+				tabs.addTab('Welcome', wb + 'tabs-welcome.html');
+				tabs.addTab('Table', wb + 'table.html');
+				tabs.addTab('Tree', wb + 'tree.html');
+				tabs.addTab('Commands', wb + 'commands.html');
+				tabs.addTab('Ribbon', wb + 'ribbon.html');
+				tabs.addTab('Tile', wb + 'tile.html');
+				tabs.addTab('Tiles', wb + 'tiles.html');
+				tabs.addTab('SlideTile', wb + 'slidetile.html');
+				tabs.addTab('Album', wb + 'album.html');
+				tabs.addTab('PixShow', wb + 'pixshow.html');
+				tabs.addTab('Bikes', wb + 'bikes.html');
+				tabs.addTab('Teaser', wb + 'teaser.html');
+				tabs.addTab('Favorites', wb + 'favorites.html');
+				tabs.addTab('DateTimePicker', wb + 'datetimepicker.html');
+				tabs.addTab('Clocks', wb + 'clocks.html');
+				tabs.addTab('Calendar', wb + 'calendar.html');
+				tabs.addTab('MyCalendar', wb + 'myCalendar.html');
+				tabs.addTab('Absence', wb + 'absence.html');
+				tabs.addTab('Accordion', wb + 'accordion.html');
+				tabs.addTab('Menu', wb + 'menu.html');
+				tabs.addTab('Dialogs/UI', wb + 'dialogs-ui.html');
+				tabs.addTab('Tabview', wb + 'tabview.html');
+				tabs.addTab('Carousel', wb + 'carousel.html');
+				tabs.addTab('Video', wb + 'video.html');
+				tabs.addTab('Layout', wb + 'layout.html');
+				tabs.addTab('Graphics', wb + 'drawing.html');
+				tabs.addTab('OneDrive', 'oneDrive.html');
+				tabs.addTab('Bing', 'http://www.bing.com');
+				tabs.addTab('Nalizadeh', 'http://www.nalizadeh.com');
+				tabs.build(pa.selectedTab);
+			});
+		</script>
+		</div>
+	</div>
+</div>
+
+<div class="footer row">
+	<div class="footer-left">
+		<p class="copyright">
+			Design and coding by &nbsp;<a href="http://www.nalizadeh.com" title="Responsive framework">nalizadeh.com</a><br>
+			Copyright © 2017 nalizadeh.com<br>All rights reserved
+		</p>
+	</div>
+	<div class="footer-right">
+		<p class="social">
+			<span>Follow us</span>
+			<a class="facebook" href=""></a>
+			<a class="twitter" href=""></a>
+			<a class="google" href=""></a>
+			<a class="linkedin" href=""></a>
+			<a class="youtube" href=""></a>
+		</p>
+	</div>
+</div>
+
+</body>
+</html>
