@@ -1,8 +1,6 @@
 
 ![nmdr](https://user-images.githubusercontent.com/34987997/71667052-baf74180-2d63-11ea-9dc2-2e30add0b09c.png)
 
-# nmdr
-
 nmdr is a collection of lightweight and useful UI components such as table, tree, dialogs, popups, menu etc. 
 based on pure Javascript and does not need any library like jQuery or something else.
 All its components can easily be customized to integrate with any website.
