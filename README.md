@@ -36,3 +36,16 @@ Take a look at basic demos for a better insight.
 ![nmdrtable3](https://user-images.githubusercontent.com/34987997/71665656-1292ae80-2d5e-11ea-9c46-37b0ec7dcaac.png)
 ![nmdrtable4](https://user-images.githubusercontent.com/34987997/71665657-1292ae80-2d5e-11ea-85b7-4debacda46b0.png)
 ![nmdrtable5](https://user-images.githubusercontent.com/34987997/71665659-1292ae80-2d5e-11ea-90ca-71434e068902.png)
+
+# nmdrTree
+
+![tree](https://user-images.githubusercontent.com/34987997/71665669-145c7200-2d5e-11ea-959b-7e492b1755e4.png)
+
+# nmdrMenu
+
+![menu](https://user-images.githubusercontent.com/34987997/71665650-11fa1800-2d5e-11ea-80e0-506024b87428.png)
+
+# nmdrTabview
+
+![tabs](https://user-images.githubusercontent.com/34987997/71665665-13c3db80-2d5e-11ea-9190-51160018e642.png)
+
