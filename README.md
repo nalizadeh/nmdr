@@ -1,5 +1,5 @@
 
-![nmdr](https://user-images.githubusercontent.com/34987997/71665652-11fa1800-2d5e-11ea-8c88-4713487e2579.png)
+![nmdr](https://user-images.githubusercontent.com/34987997/71667052-baf74180-2d63-11ea-9dc2-2e30add0b09c.png)
 
 # nmdr
 
