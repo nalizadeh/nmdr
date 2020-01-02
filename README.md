@@ -1,3 +1,6 @@
+
+![nmdr](https://user-images.githubusercontent.com/34987997/71665652-11fa1800-2d5e-11ea-8c88-4713487e2579.png)
+
 # nmdr
 
 nmdr is a collection of lightweight and useful UI components such as table, tree, dialogs, popups, menu etc. 
@@ -88,3 +91,8 @@ Take a look at basic demos for a better insight.
 # nmdrPixShow
 
 ![slider](https://user-images.githubusercontent.com/34987997/71665662-132b4500-2d5e-11ea-8f40-1edc20d43f97.jpg)
+
+# nmdrVideo
+
+![video](https://user-images.githubusercontent.com/34987997/71665671-145c7200-2d5e-11ea-9c04-6d666add8178.jpg)
+
