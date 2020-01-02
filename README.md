@@ -49,3 +49,42 @@ Take a look at basic demos for a better insight.
 
 ![tabs](https://user-images.githubusercontent.com/34987997/71665665-13c3db80-2d5e-11ea-9190-51160018e642.png)
 
+# nmdrClocks
+
+![clocks](https://user-images.githubusercontent.com/34987997/71665645-11618180-2d5e-11ea-900b-2d3ee4da4c77.png)
+
+# nmdrAccordion
+
+![accordion](https://user-images.githubusercontent.com/34987997/71665639-10c8eb00-2d5e-11ea-8d96-903309781092.png)
+
+# nmdrCarousel
+
+![carousel](https://user-images.githubusercontent.com/34987997/71665644-11618180-2d5e-11ea-81cc-8bc212a51c75.jpg)
+
+# nmdrCommands
+
+![commands](https://user-images.githubusercontent.com/34987997/71665646-11618180-2d5e-11ea-8f96-de066f89ab80.png)
+
+# nmdrRibbon
+
+![ribbon](https://user-images.githubusercontent.com/34987997/71665661-132b4500-2d5e-11ea-98c7-66bd20eaeacb.png)
+
+# nmdrTeaser
+
+![teaser](https://user-images.githubusercontent.com/34987997/71665666-13c3db80-2d5e-11ea-91c0-41cf8efca668.jpg)
+
+# nmdrFavorites
+
+![favorites](https://user-images.githubusercontent.com/34987997/71665649-11fa1800-2d5e-11ea-92cc-d174e4812780.png)
+
+# nmdrTiles
+
+![tiles](https://user-images.githubusercontent.com/34987997/71665667-13c3db80-2d5e-11ea-9090-4386c6074f6f.jpg)
+
+# nmdrAlbum
+
+![album](https://user-images.githubusercontent.com/34987997/71665640-10c8eb00-2d5e-11ea-9096-b9809c1177e6.jpg)
+
+# nmdrPixShow
+
+![slider](https://user-images.githubusercontent.com/34987997/71665662-132b4500-2d5e-11ea-8f40-1edc20d43f97.jpg)
