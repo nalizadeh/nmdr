@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits Carousel</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+<script type="text/javascript">
+
+function makeCarousel() {
+
+	var data = {
+		mode: 1,
+		width: 800,
+		height: 200,
+		imagePath: "img/carous/",
+		caros: 4,
+		toolbar: true,
+		autoplay: true,
+		responsive: false,
+		pics: [
+			{key:"1", img:"img/teaser/fischer.jpg", title:"Fischer", desc:"fischer bike", url:"htt://nalizadeh.com/fischer"},
+			{key:"2", img:"img/teaser/klein-attitude.jpg", title:"KLEIN", desc:"Klein Attitude bike", url:"htt://nalizadeh.com/klein"},
+			{key:"3", img:"img/teaser/koga-miyata.jpg", title:"Koga-Miyata", desc:"Koga Miyata Ridger Runner", url:"htt://nalizadeh.com/koga"},
+			{key:"4", img:"img/teaser/kuwahara.jpg", title:"Kuwahara", desc:"Kuwahara gepart", url:"htt://nalizadeh.com/kuwahara"},
+			{key:"5", img:"img/teaser/marin-pine-frs.jpg", title:"Marin Pine FRS", desc:"Marin pine frs. bike", url:"htt://nalizadeh.com/marin-frs"},
+			{key:"1", img:"img/teaser/merlin.jpg", title:"Merlin", desc:"Merlin mountain bike", url:"htt://nalizadeh.com/merlin"},
+			{key:"1", img:"img/teaser/trek.jpg", title:"TREK", desc:"Trek 8000", url:"htt://nalizadeh.com/trek"},
+			{key:"1", img:"img/teaser/xizang.jpg", title:"GT Xizang", desc:"GT Xizang bike", url:"htt://nalizadeh.com/xizang"},
+			{key:"1", img:"img/teaser/yeti.jpg", title:"YETI FRO.", desc:"1988 Yeti FRO.", url:"htt://nalizadeh.com/yeti"},
+			{key:"1", img:"img/teaser/yo-eddy-aquafade.jpg", title:"Yo Eddy", desc:"yo eddy aqua fade", url:"htt://nalizadeh.com/yo-eddy"},
+			{key:"1", img:"img/teaser/yo-eddy-black.jpg", title:"Yo Eddy", desc:"yo eddy black", url:"htt://nalizadeh.com/yoeddy"},
+			{key:"1", img:"img/teaser/yo-eddy-grello.jpg", title:"Yo Eddy", desc:"yo eddy grellow", url:"htt://nalizadeh.com/yoeddy"},
+		]
+	};
+
+	nmdr.carousel("MyCarousel").carousel(data);
+	
+	var data2 = {
+		mode: 2,
+		width: 800,
+		height: 200,
+		imagePath: "img/carous/",
+		caros: 4,
+		toolbar: true,
+		autoplay: true,
+		responsive: false,
+		pics: [
+			{key:"1", img:"img/teaser/fischer.jpg", title:"Fischer", desc:"fischer bike", url:"htt://nalizadeh.com/fischer"},
+			{key:"2", img:"img/teaser/klein-attitude.jpg", title:"KLEIN", desc:"Klein Attitude bike", url:"htt://nalizadeh.com/klein"},
+			{key:"3", img:"img/teaser/koga-miyata.jpg", title:"Koga-Miyata", desc:"Koga Miyata Ridger Runner", url:"htt://nalizadeh.com/koga"},
+			{key:"4", img:"img/teaser/kuwahara.jpg", title:"Kuwahara", desc:"Kuwahara gepart", url:"htt://nalizadeh.com/kuwahara"},
+			{key:"5", img:"img/teaser/marin-pine-frs.jpg", title:"Marin Pine FRS", desc:"Marin pine frs. bike", url:"htt://nalizadeh.com/marin-frs"},
+			{key:"1", img:"img/teaser/merlin.jpg", title:"Merlin", desc:"Merlin mountain bike", url:"htt://nalizadeh.com/merlin"},
+			{key:"1", img:"img/teaser/trek.jpg", title:"TREK", desc:"Trek 8000", url:"htt://nalizadeh.com/trek"},
+			{key:"1", img:"img/teaser/xizang.jpg", title:"GT Xizang", desc:"GT Xizang bike", url:"htt://nalizadeh.com/xizang"},
+			{key:"1", img:"img/teaser/yeti.jpg", title:"YETI FRO.", desc:"1988 Yeti FRO.", url:"htt://nalizadeh.com/yeti"},
+			{key:"1", img:"img/teaser/yo-eddy-aquafade.jpg", title:"Yo Eddy", desc:"yo eddy aqua fade", url:"htt://nalizadeh.com/yo-eddy"},
+			{key:"1", img:"img/teaser/yo-eddy-black.jpg", title:"Yo Eddy", desc:"yo eddy black", url:"htt://nalizadeh.com/yoeddy"},
+			{key:"1", img:"img/teaser/yo-eddy-grello.jpg", title:"Yo Eddy", desc:"yo eddy grellow", url:"htt://nalizadeh.com/yoeddy"},
+		]
+	};
+
+	nmdr.carousel("MyCarousel2").carousel(data2);
+
+	var data3 = {
+		mode: 1,
+		width: 800,
+		height: 100,
+		imagePath: "img/carous/",
+		caros: 4,
+		toolbar: true,
+		autoplay: true,
+		responsive: false,
+		pics: [
+			{key:"1", img:null, title:"Fischer", desc:"fischer bike", url:"htt://nalizadeh.com/fischer"},
+			{key:"2", img:null, title:"KLEIN", desc:"Klein Attitude bike", url:"htt://nalizadeh.com/klein"},
+			{key:"3", img:null, title:"Koga-Miyata", desc:"Koga Miyata Ridger Runner", url:"htt://nalizadeh.com/koga"},
+			{key:"4", img:null, title:"Kuwahara", desc:"Kuwahara gepart", url:"htt://nalizadeh.com/kuwahara"},
+			{key:"5", img:null, title:"Marin Pine FRS", desc:"Marin pine frs. bike", url:"htt://nalizadeh.com/marin-frs"},
+			{key:"1", img:null, title:"Merlin", desc:"Merlin mountain bike", url:"htt://nalizadeh.com/merlin"},
+			{key:"1", img:null, title:"TREK", desc:"Trek 8000", url:"htt://nalizadeh.com/trek"},
+			{key:"1", img:null, title:"GT Xizang", desc:"GT Xizang bike", url:"htt://nalizadeh.com/xizang"},
+			{key:"1", img:null, title:"YETI FRO.", desc:"1988 Yeti FRO.", url:"htt://nalizadeh.com/yeti"},
+			{key:"1", img:null, title:"Yo Eddy", desc:"yo eddy aqua fade", url:"htt://nalizadeh.com/yo-eddy"},
+			{key:"1", img:null, title:"Yo Eddy", desc:"yo eddy black", url:"htt://nalizadeh.com/yoeddy"},
+			{key:"1", img:null, title:"Yo Eddy", desc:"yo eddy grellow", url:"htt://nalizadeh.com/yoeddy"},
+		]
+	};
+
+	nmdr.carousel("MyCarousel3").carousel(data3);
+}
+
+</script> 
+
+</head>
+<body>
+
+<center>
+<div id="MyCarousel">Carousel</div><br>
+<div id="MyCarousel2">Carousel</div><br>
+<div id="MyCarousel3">Carousel</div><br>
+
+<script type="text/javascript">
+nmdr.loadModule("carousel", makeCarousel);
+</script>
+
+</body>
+</html>

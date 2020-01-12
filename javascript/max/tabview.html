@@ -1,0 +1,128 @@
+﻿<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits Tabview</title>
+
+<style type="text/css">
+#MyTabs { position:absolute; height: 90%; width: 95%; }
+</style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+<script type="text/javascript">
+
+function makeCalendar1() {
+
+	var ca = nmdr.calendar("Calendar");
+
+    ca.renderCell = function (date) {
+        var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+        if (d==18 && m==9 && y==2017) {
+            return '<div style="width:100%;height:100%;background:orange;color:#000;"><span style="font-weight:normal">Termin 8:00 - 9:00 </span></div>';
+        }
+        if (d > 19 && d < 23 && m==9 && y==2017) {
+            return '<div style="width:100%;height:100%;background:#A9FF87;color:#000;"><span style="font-weight:normal">Vacation</span></div>';
+        }
+        return '';
+    };
+
+	ca.handleUserEvent = function (date) {
+		dlg.alert(null, date.toString());
+	};
+	
+	ca.init();
+}
+
+function makeCalendar2() {
+	nmdr.multiSelect("TeamsMultiSelect").build(
+	[
+		{title:'Checkbox1', checked:false}, 
+		{title:'Checkbox2', checked:true}, 
+		{title:'Checkbox3', checked:false}, 
+	], 'en', 180, 115);
+	
+	var ca = nmdr.calendar("TeamCalendar");
+	
+	ca.handleUserEvent = function (date) {
+		dlg.alert(null, date.toString());
+	};
+	ca.init();
+}
+
+function makeCalendar3() {
+	nmdr.phpCalendar("MyCalendar").init(
+		{
+			date: new Date(), 
+			lang: "de", 
+			fontSize: 12, 
+			enabled: true, 
+			imagePath: "img/", 
+			showClock: true, 
+			showWN: true,
+			userLines: 10,
+		}
+	);
+}
+
+</script> 
+
+</head>
+<body>
+
+<div id="tab1">
+	<div id="Calendar">
+	</div>
+</div>
+
+<div id="tab2">
+	<table cellpadding="0" cellspacing="0" border="0" width="80%" height="80%">
+		<tr>
+			<td style="height:70px;">
+				<table cellpadding="0" cellspacing="0" border="0">
+					<tr>
+						<td><input type="checkbox" name="WithOrgE" value="OrgE" id="orgECheck"/>Department Employees&nbsp;&nbsp;</td>
+						<td><input type="checkbox" name="WithTeam" value="Team" id="teamCheck" checked/>Team Employees&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td><div id="TeamsMultiSelect" style="display:inline"></div></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:top;text-aligment:left;">
+				<div id="TeamCalendar" style="width:100%;height:100%;"></div>
+			</td>
+		</tr>
+		<tr>
+			<td style="height:20px;">
+				<span>This is my team calendar</span>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id="tab3">
+	<div id="MyCalendar" style="width:700px; height:550px;">
+	</div>
+</div>
+
+<div id="MyTabs">
+</div>
+
+<script type="text/javascript">
+
+nmdr.loadModules(["tabview", "calendar", "phpCalendar", "datetime", "dClock", "multiSelect"], function() {
+	var tabs = nmdr.tabview('MyTabs');
+	tabs.addTab("tab1", "Calendar", makeCalendar1);
+	tabs.addTab("tab2", "Team Calendar", makeCalendar2);
+	tabs.addTab("tab3", "My Calendar", makeCalendar3);
+	tabs.addTab(null, "Tables", null, "table.html");
+	tabs.build(null, 120);
+});
+
+</script>
+
+</body>
+</html>

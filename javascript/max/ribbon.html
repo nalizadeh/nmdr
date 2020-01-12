@@ -1,0 +1,333 @@
+﻿<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits Ribbon</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+<script type="text/javascript">
+
+function prepareTestRibbon() {
+	var ribbon = "<?xml version=\"1.0\"?>" +
+	"<Ribbon id='MyRibbon' title='MyRibbon'>" +
+        "<TabGroup id='Lists' color='orange'>" +
+		    "<Tab id='ITEMS' text='ITEMS'>"+
+			   "<Group id='Document' text='Document'>" +
+				    "<Button id='NewDocument' " +
+					        "text='New Document' " +
+					        "tooltip='Add new document' " +
+					        "command='NewDocument' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/NewDocument.png'>" +
+				    "</Button>" +
+				    "<Button id='OpenDocument' " +
+					        "text='Open Document' " +
+					        "tooltip='Open a document' " +
+					        "command='OpenDocument' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/OpenDocument.png'>" +
+				    "</Button>" +
+				    "<Button id='EditDocument' " +
+					        "text='Edit document' " +
+					        "tooltip='Edit document' " +
+					        "command='EditDocument' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/EditDocument.png'>" +
+				    "</Button>" +
+				    "<Button id='SaveDocument' " +
+					        "text='Save document' " +
+					        "tooltip='Save document' " +
+					        "command='SaveDocument' " +
+							"enabled='false' " +
+					        "size='32' " +
+					        "image='img/ribbon/SaveDocument.png'>" +
+				    "</Button>" +
+               "</Group>" +
+			   "<Group id='Online' text='Online'>" +
+				    "<Button id='Download' " +
+					        "text='Download' " +
+					        "tooltip='Download dodcument' " +
+					        "command='DownloadDocument' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/EditDocument.png'>" +
+                        "<MenuItem id='DownloadSubmenuItem1' " +
+                            "text='Submenu comman 1 will be executed and then return to the reality for always' " +
+                            "tooltip='Submenu command 1 is here' " +
+							"description='My submenu command' " +
+                            "image='img/ribbon/NewOrder16.png' " +
+                            "command='SubmenuCommand1' " +
+							"enabled='true'>" +
+                        "</MenuItem>" +
+                        "<MenuItem id='DownloadSubmenuItem2' " +
+                            "text='Submenu comman 2' " +
+                            "tooltip='Submenu command 2 is here' " +
+                            "image='img/ribbon/16x16.png' " +
+							"description='My options' " +
+                            "command='SubmenuCommand2' " +
+							"enabled='true'>" +
+                        "</MenuItem>" +
+				    "</Button>" +
+				    "<Button id='Upload' " +
+					        "text='Upload document' " +
+					        "tooltip='Upload a document' " +
+					        "command='UploadDocument' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/UploadDocument.png'>" +
+				    "</Button>" +
+				    "<Button id='Share' " +
+					        "text='Share' " +
+					        "tooltip='Share this dodcument' " +
+					        "command='ShareDocument' " +
+							"enabled='true' " +
+					        "size='32' " +
+							"width='50' " +
+					        "image='img/ribbon/DocumentCenter.png'>" +
+				    "</Button>" +
+				    "<Button id='NewDocumentCenter' " +
+					        "text='Save document in center' " +
+					        "tooltip='Share this dodcument' " +
+					        "command='ShareDocument' " +
+							"enabled='true' " +
+					        "size='16' " +
+					        "image='img/ribbon/NewOrder16.png'>" +
+                        "<MenuItem id='DownloadSubmenuItem2x' " +
+                            "text='Submenu comman 2' " +
+                            "tooltip='Submenu command 2 is here' " +
+                            "image='img/ribbon/16x16.png' " +
+							"description='My options' " +
+                            "command='SubmenuCommand2' " +
+							"enabled='true'>" +
+                        "</MenuItem>" +
+					"</Button>" +
+				    "<Button id='Community' " +
+					        "text='Community' " +
+					        "tooltip='Community' " +
+					        "command='Community' " +
+							"enabled='true' " +
+					        "size='16' " +
+					        "image='img/ribbon/share16.png'>" +
+				    "</Button>" +
+				    "<Button id='PublishDocument' " +
+					        "text='Publish document' " +
+					        "tooltip='Share this dodcument' " +
+					        "command='ShareDocument' " +
+							"enabled='false' " +
+					        "size='16' " +
+					        "image='img/ribbon/Details16.png'>" +
+				    "</Button>" +
+					"<ComboBox id='ComboBox1' " +
+					        "width='120' " +
+					        "height='20' " +
+							"command='ComboBox1' " +
+							"enabled='true' " +
+					        "items='ShareDocument1,ShareDocument2,Publish document,EditOrder' " +
+					        "selected='ShareDocument2' >" +
+				    "</ComboBox>" +
+  			   "</Group>" +
+			   "<Group id='Order' text='Order'>" +
+				    "<Button id='Edit order' " +
+					        "text='EditOrder' " +
+					        "tooltip='Edit an order' " +
+					        "command='EditOrder' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/EditOrder.png'>" +
+				    "</Button>" +
+				    "<Button id='OpenOrder' " +
+					        "text='Open order' " +
+					        "tooltip='Open order' " +
+					        "command='OpenOrder' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/ShowOrder.png'>" +
+				    "</Button>" +
+				    "<Button id='OrderHome' " +
+					        "text='Open order home' " +
+					        "tooltip='Open order home' " +
+					        "command='OrderHome' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/OrderHome.png'>" +
+				    "</Button>" +
+			"</Group>" +
+		    "</Tab>" +
+
+		    "<Tab id='LISTS' text='LISTS'>" +
+			   "<Group id='ViewFormat' text='View Format'>" +
+				    "<Button id='View' " +
+					        "text='View' " +
+					        "tooltip='View' " +
+					        "command='View' " +
+							"enabled='true' " +
+					        "size='32' " +
+							"width='45' " +
+					        "image='img/ribbon/ViewDocument.png'>" +
+				    "</Button>" +
+				    "<Button id='CreateView' " +
+					        "text='Create View' " +
+					        "tooltip='CreateView' " +
+					        "command='CreateView' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/Settings.png'>" +
+				    "</Button>" +
+				"</Group>" +
+				
+			   "<Group id='ViewFormat44' text='View Format'>" +
+				    "<Button id='Approve' " +
+					        "text='Approve' " +
+					        "tooltip='Approve' " +
+					        "command='Approve' " +
+							"enabled='true' " +
+					        "size='32' " +
+							"width='58' " +
+					        "image='img/ribbon/RequestApprove.png'>" +
+				    "</Button>" +
+				    "<Button id='CreateView44' " +
+					        "text='Create View' " +
+					        "tooltip='CreateView' " +
+					        "command='CreateView' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/DocumentCenter.png'>" +
+				    "</Button>" +
+				    "<Button id='CreateView444' " +
+					        "text='Create View' " +
+					        "tooltip='CreateView' " +
+					        "command='CreateView' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/CheckDocument.png'>" +
+				    "</Button>" +
+				"</Group>" +
+				
+			   "<Group id='ViewFormat4499' text='View Format'>" +
+				    "<Button id='Viewkk' " +
+					        "text='View' " +
+					        "tooltip='View' " +
+					        "command='View' " +
+							"enabled='true' " +
+					        "size='16' " +
+					        "image='img/ribbon/16x16.png'>" +
+				    "</Button>" +
+				    "<Button id='CreateView44kk' " +
+					        "text='Create View' " +
+					        "tooltip='CreateView' " +
+					        "command='CreateView' " +
+							"enabled='true' " +
+					        "size='16' " +
+					        "image='img/ribbon/16x16.png'>" +
+				    "</Button>" +
+				    "<Button id='CreateView444i' " +
+					        "text='Create View' " +
+					        "tooltip='CreateView' " +
+					        "command='CreateView' " +
+							"enabled='true' " +
+					        "size='16' " +
+					        "image='img/ribbon/16x16.png'>" +
+				    "</Button>" +
+				"</Group>" +
+				
+			    "<Group id='Display' text='Display'>" +
+				    "<CheckBox id='CheckBox1' " +
+					        "text='With Delegate' " +
+					        "tooltip='With Delegate' " +
+					        "command='CheckBox1' " +
+							"enabled='true' " +
+							"checked='false'>" +
+				    "</CheckBox>" +
+				    "<CheckBox id='CheckBox2' " +
+					        "text='Open all tabs' " +
+					        "tooltip='Open all tabs' " +
+					        "command='CheckBox12' " +
+							"enabled='true' " +
+							"checked='true'>" +
+				    "</CheckBox>" +
+				    "<CheckBox id='CheckBox3' " +
+					        "text='Settings for features' " +
+					        "tooltip='Settings for features' " +
+					        "command='CheckBox13' " +
+							"enabled='false' " +
+							"checked='false'>" +
+				    "</CheckBox>" +
+				"</Group>" +
+				
+			    "<Group id='RadioButtons' text='RadioButtons'>" +
+				    "<RadioButton id='RadioButton1' " +
+					        "text='Clear hash' " +
+					        "tooltip='Clear hash' " +
+					        "command='RadioButton1' " +
+							"enabled='true' " +
+							"selected='false'>" +
+				    "</RadioButton>" +
+				    "<RadioButton id='RadioButton2' " +
+					        "text='Datasheet view' " +
+					        "tooltip='Datasheet view' " +
+					        "command='RadioButton2' " +
+							"enabled='true' " +
+							"selected='false'>" +
+				    "</RadioButton>" +
+				    "<RadioButton id='RadioButton3' " +
+					        "text='Connect to Office' " +
+					        "tooltip='Connect to Office' " +
+					        "command='RadioButton3' " +
+							"enabled='true' " +
+							"selected='false'>" +
+				    "</RadioButton>" +
+				    "<RadioButton id='RadioButton4' " +
+					        "text='Connect to Office' " +
+					        "tooltip='Connect to Office' " +
+					        "command='RadioButton4' " +
+							"enabled='false' " +
+							"selected='false'>" +
+				    "</RadioButton>" +
+				    "<RadioButton id='RadioButton47' " +
+					        "text='Connect to Office' " +
+					        "tooltip='Connect to Office' " +
+					        "command='RadioButton47' " +
+							"enabled='true' " +
+							"selected='false'>" +
+				    "</RadioButton>" +
+				"</Group>" +
+				
+			"</Tab>" +
+        "</TabGroup>" +
+        "<TabGroup id='EXTS' color='green'>" +
+		    "<Tab id='EXPORT' text='EXPORT'>" +
+			   "<Group id='Options' text='Options'>" +
+				    "<Button id='ViewExpFile' " +
+					        "text='View export file' " +
+					        "tooltip='View export file' " +
+					        "command='ViewExpFile' " +
+							"enabled='true' " +
+					        "size='32' " +
+					        "image='img/ribbon/32x32.png'>" +
+				    "</Button>" +
+			   "</Group>" +
+		    "</Tab>" +
+        "</TabGroup>" +
+	"</Ribbon>";
+	
+	nmdr.ribbon('MyTabs').build(ribbon, null, 'img/');
+}
+</script> 
+
+</head>
+<body style='padding:0px; margin:0'>
+
+<br>
+<div id='MyTabs'></div>
+    <script type="text/javascript">
+		nmdr.loadModule("ribbon", prepareTestRibbon);
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits Tabs</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+<script type="text/javascript"></script> 
+
+</head>
+<body>
+
+<div id='MyTabs'></div>
+<div>
+    <script type="text/javascript">
+		nmdr.loadModule("tabs", function() {
+            var tabs = nmdr.tabs('MyTabs');
+            var wb = ''; // 'http://localhost/';
+
+            tabs.addTab('Welcome', wb + 'tabs-welcome.html');
+            tabs.addTab('Table', wb + 'table.html');
+            tabs.addTab('Tree', wb + 'tree.html');
+            tabs.addTab('Commands', wb + 'commands.html');
+            tabs.addTab('Ribbon', wb + 'ribbon.html');
+            tabs.addTab('Tile', wb + 'tile.html');
+            tabs.addTab('Tiles', wb + 'tiles.html');
+            tabs.addTab('SlideTile', wb + 'slidetile.html');
+            tabs.addTab('Album', wb + 'album.html');
+            tabs.addTab('PixShow', wb + 'bing.html');
+            tabs.addTab('Bikes', wb + 'bikes.html');
+            tabs.addTab('Teaser', wb + 'teaser.html');
+            tabs.addTab('Favorites', wb + 'favorites.html');
+            tabs.addTab('DateTimePicker', wb + 'datetimepicker.html');
+            tabs.addTab('Clocks', wb + 'clocks.html');
+            tabs.addTab('Calendar', wb + 'calendar.html');
+            tabs.addTab('MyCalendar', wb + 'myCalendar.html');
+            tabs.addTab('Absence', wb + 'absence.html');
+            tabs.addTab('Accordion', wb + 'accordion.html');
+            tabs.addTab('Menu', wb + 'menu.html');
+            tabs.addTab('Dialogs/UI', wb + 'dialogs-ui.html');
+            tabs.addTab('Tabview', wb + 'tabview.html');
+            tabs.addTab('Carousel', wb + 'carousel.html');
+            tabs.addTab('Video', wb + 'video.html');
+            tabs.addTab('Layout', wb + 'layout.html');
+            tabs.addTab('Graphics', wb + 'drawing.html');
+            tabs.addTab('OneDrive', 'oneDrive.html');
+            tabs.addTab('Bing', 'http://www.bing.com');
+            tabs.addTab('Nalizadeh', 'http://www.nalizadeh.dynv6.net');
+            tabs.build();
+		});
+    </script>
+</div>
+
+</body>
+</html>

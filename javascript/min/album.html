@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>nmdrToolkits Album</title>
+
+<style type="text/css">
+* {margin:30; padding:0; }
+.welcome {font:16px Verdana,Arial; color:#083}
+.description {font:14px Verdana,Arial; color:black}
+.Instructions {font-family:Verdana,Arial; font-size:15px; font-weight:bold; color:black}
+.explain {font:12px Verdana,Arial; color:black}
+code {color:red}
+</style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+function makeAlbum() {
+    var albums = [
+        {
+            title: "Animals",
+            description: "These are some pics of animals.",
+            image: "album/animals.jpg",
+            url: "http://www.nalizadeh.com",
+            thumbsPath: "img/album/animals/thumbs/",
+            imagePath: "img/album/animals/",
+            thumbs: [
+				"an01.jpg",
+				"an02.jpg",
+				"an03.jpg",
+				"an04.jpg",
+				"an05.jpg",
+				"an06.jpg",
+				"an07.jpg",
+				"an08.jpg",
+				"an09.jpg",
+				"an10.jpg",
+				"an11.jpg",
+				"an12.jpg",
+				"an13.jpg",
+				"an14.jpg",
+				"an15.jpg",
+				"an16.jpg",
+				"an17.jpg"]
+        },
+        {
+            title: "Flowers",
+            description: "These are some flowers pics",
+            image: "album/flowers.jpg",
+            url: "http://www.nalizadeh.com",
+            thumbsPath: "img/album/flowers/thumbs/",
+            imagePath: "img/album/flowers/",
+            thumbs: [
+				"flow01.jpg",
+				"flow02.jpg",
+				"flow03.jpg",
+				"flow04.jpg",
+				"flow05.jpg",
+				"flow06.jpg",
+				"flow07.jpg",
+				"flow08.jpg",
+				"flow09.jpg",
+				"flow10.jpg",
+				"flow11.jpg",
+				"flow12.jpg",
+				"flow13.jpg",
+				"flow14.jpg",
+				"flow15.jpg",
+				"flow16.jpg",
+				"flow17.jpg",
+				"flow18.jpg",
+				"flow19.jpg",
+				"flow20.jpg"]
+        },
+		{
+		    title: "Nature",
+		    description: "These are some pics of nature.",
+		    image: "album/nature.jpg",
+		    url: "http://www.nalizadeh.com",
+		    thumbsPath: "img/album/nature/thumbs/",
+		    imagePath: "img/album/nature/",
+		    thumbs: [
+				"nat01.jpg",
+				"nat02.jpg",
+				"nat03.jpg",
+				"nat04.jpg",
+				"nat05.jpg",
+				"nat06.jpg",
+				"nat07.jpg",
+				"nat08.jpg",
+				"nat09.jpg",
+				"nat10.jpg",
+				"nat11.jpg",
+				"nat12.jpg",
+				"nat13.jpg",
+				"nat14.jpg",
+				"nat15.jpg",
+				"nat16.jpg",
+				"nat17.jpg",
+				"nat18.jpg",
+				"nat19.jpg",
+				"nat20.jpg"]
+		},
+		{
+		    title: "Live",
+		    description: "These are some of around..",
+		    image: "album/live.jpg",
+		    url: "http://www.nalizadeh.com",
+		    thumbsPath: "img/album/live/thumbs/",
+		    imagePath: "img/album/live/",
+		    thumbs: [
+				"live01.jpg",
+				"live02.jpg",
+				"live03.jpg",
+				"live04.jpg",
+				"live05.jpg",
+				"live06.jpg",
+				"live07.jpg",
+				"live08.jpg",
+				"live09.jpg",
+				"live10.jpg",
+				"live11.jpg",
+				"live12.jpg",
+				"live13.jpg",
+				"live14.jpg",
+				"live15.jpg",
+				"live16.jpg",
+				"live17.jpg",
+				"live18.jpg",
+				"live19.jpg",
+				"live20.jpg",
+				"live21.jpg",
+				"live22.jpg",
+				"live23.jpg",
+				"live24.jpg",
+				"live25.jpg",
+				"live26.jpg",
+				"live27.jpg",
+				"live28.jpg",
+				"live29.jpg"]
+		},
+		{
+		    title: "Bikes",
+		    description: "These are my bikes!",
+		    image: "album/bikes.jpg",
+		    url: "http://www.nalizadeh.com",
+		    thumbsPath: "img/album/bikes/thumbs/",
+		    imagePath: "img/album/bikes/",
+		    thumbs: [
+				"xizang.jpg",
+				"yeti.jpg",
+				"merlin.jpg",
+				"trek.jpg",
+				"yo-eddy-aquafade.jpg",
+				"klein-attitude.jpg",
+				"yo-eddy-black.jpg",
+				"kuwahara.jpg",
+				"yo-eddy-grello.jpg",
+				"marin-pine-frs.jpg",
+				"koga-miyata.jpg",
+				"marin-pine-mountain.jpg",
+				"fischer.jpg"]
+		},
+    ];
+
+    nmdr.album('ALBUM').init(albums, 600, 450, 'img/', 130, 98, 4);
+}
+</script> 
+
+</head>
+<body>
+
+
+<div id="ALBUM" style='position:absolute; left:620px; top:100px; width:600px; height:300px'>
+<script type="text/javascript">
+nmdr.loadModule("album", makeAlbum);
+</script>			   
+</div>
+
+<table border='0' cellpadding='0' cellspacing='0'>
+	<tr>
+		<td style='text-align:left'>
+			<div>
+				<br><br>
+				<span class='description'>This is the nmdrAlbum component</span><br><br>
+				<span class='Instructions'>Instructions</span><br><br>
+				<span class='explain'>To initialize a nmdrAlbum just use the following code:</span><br><br>
+				<img src='img/tutorial/img10.png'><br>
+			</div>
+		</td>
+	</tr>
+</table>
+</body>    
+</html>
