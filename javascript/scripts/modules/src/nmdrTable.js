@@ -80,6 +80,7 @@ function nmdrTable(id) {
         customQuery : null,
         dataSplitter : ",",
         filterSplitter : "&",
+        filterDataSplitter : "|",
 		menuColumn : -1,
 		        		
         clientHandling : true,
@@ -91,6 +92,7 @@ function nmdrTable(id) {
         showBorder : true,
         showGrids : true,
         showShadow : false,
+		showFilterData : true,
 		scrollable : false,
 		scrollable2 : false,
 
@@ -101,8 +103,9 @@ function nmdrTable(id) {
 
 		lang: "en",
         patternNames : "",
-        removeFilterLable : "",
         removeSortingLable : "",
+        setFilterLable : "",
+        removeFilterLable : "",
         pageLable : "",
         ofLable : "",
         totalLable : "",
@@ -159,6 +162,9 @@ function nmdrTable(id) {
         footerShowGoPage : true,
         footerShowRowCount : true,
         footerShowPageInfo : true,
+		
+		//=== headermenu
+		headerMenuWidth : 280
     };
 
     //=== Methods 
@@ -178,8 +184,9 @@ function nmdrTable(id) {
     $.localization = function () {
 		if (this.props.lang === "en") {
 			this.props.patternNames = ["is equal/x", "is not equal/x", "contains/x", "not contains/x", "starts with/x", "ends with/x"];
-			this.props.removeFilterLable = "Remove Filter";
 			this.props.removeSortingLable = "Remove Sorting";
+			this.props.removeFilterLable = "Remove Filter";
+			this.props.setFilterLable = "Set Filter";
 			this.props.pageLable = "Page";
 			this.props.ofLable = "of";
 			this.props.totalLable = "Total";
@@ -188,8 +195,9 @@ function nmdrTable(id) {
 		}
 		else if (this.props.lang === "de") {
 			this.props.patternNames = ["is equal/ist gleich", "is not equal/ist nicht gleich", "contains/enthält", "not contains/enthält nicht", "starts with/beginnt mit", "ends with/endet mit"];
-			this.props.removeFilterLable = "Filter löschen";
 			this.props.removeSortingLable = "Sortierung löschen";
+			this.props.removeFilterLable = "Filter löschen";
+			this.props.setFilterLable = "Filter setzen";
 			this.props.pageLable = "Seite";
 			this.props.ofLable = "von";
 			this.props.totalLable = "Total";
@@ -198,8 +206,9 @@ function nmdrTable(id) {
 		}
 		else if (this.props.lang === "fr") {
 			this.props.patternNames = ["is equal/est le même", "is not equal/n'est pas égal", "contains/contient", "not contains/ne contient pas", "starts with/commence par", "ends with/se termine par"];
-			this.props.removeFilterLable = "Supprimer le filtre";
 			this.props.removeSortingLable = "Supprimer le tri";
+			this.props.removeFilterLable = "Supprimer le filtre";
+			this.props.setFilterLable = "Définir le filtre";
 			this.props.pageLable = "Page";
 			this.props.ofLable = "de";
 			this.props.totalLable = "Totalement";
@@ -208,8 +217,9 @@ function nmdrTable(id) {
 		}
 		else if (this.props.lang === "es") {
 			this.props.patternNames = ["is equal/es lo mismo", "is not equal/no es igual", "contains/contiene", "not contains/no contiene", "starts with/comienza con", "ends with/termina con"];
-			this.props.removeFilterLable = "Eliminar filtro";
 			this.props.removeSortingLable = "Eliminar clasificación";
+			this.props.removeFilterLable = "Eliminar filtro";
+			this.props.setFilterLable = "Establecer filtro";
 			this.props.pageLable = "Página";
 			this.props.ofLable = "de";
 			this.props.totalLable = "Total";
@@ -388,14 +398,15 @@ function nmdrTable(id) {
 			" display: none;" +
 			" background-color: white;" +
 			" border: 1px solid #bbb;" +
-			" padding:10px;" +
+			" padding: 10px;" +
+			" width: " + pr.headerMenuWidth + "px;" +
             " line-height: 22px;" +
             " font-family: arial,verdana,sans-serif;" +
             " font-weight: normal;" +
-            " font-size:12px;" +
+            " font-size: 12px;" +
             " z-index: 999;" +
-            " box-shadow:5px 5px 5px #ddd;" +
-			" transition:all 0.5s ease-in-out;" +
+            " box-shadow: 5px 5px 5px #ddd;" +
+			" transition: all 0.5s ease-in-out;" +
             "}" +
             pfx + " .nmdrTB_rowMenu {" +
 			" display: none;" +
@@ -922,9 +933,10 @@ function nmdrTable(id) {
 		
         var self = this;
         window.setTimeout(function () { // just due showing loader
-            if (self.props.sortingColumn === -1)
+            if (self.props.sortingColumn === -1) {
                 self.dataRows = self.originRows.slice(0);
-            else {
+				self.doFilter();
+			} else {
                 reference = self;
                 self.dataRows.sort(self.sortComparator);
             }
@@ -952,13 +964,21 @@ function nmdrTable(id) {
     };
 
     $.setFilter = function () {
-        var filterCondition = document.getElementById(this.id + "_nmdrTB_filterSelect").value;
-        var filterValue = document.getElementById(this.id + "_nmdrTB_filterText").value;
-        if (filterValue.length > 0) {
-            this.props.filters[this.selectedColumn] = filterCondition + this.props.filterSplitter + filterValue;
+		var sp = this.props.filterSplitter,
+			filterCondition = document.getElementById(this.id + "_nmdrTB_filterSelect").value,
+			filterValue = document.getElementById(this.id + "_nmdrTB_filterText").value,
+			filter = filterValue.length > 0 ? filterCondition + sp + filterValue : "",
+			filterdata = this.getFilterData();
+			
+		if (filterdata.length > 0) {
+			filter += filter.length > 0 ? filter + sp + filterdata : sp + sp + filterdata;
+		}
+		if (filter.length > 0) {
+            this.props.filters[this.selectedColumn] = filter;
             this.clearSelection();
             this.doFilter();
-        }
+        } 
+		else removeFilter(); 
     };
 
     $.removeFilter = function () {
@@ -986,32 +1006,45 @@ function nmdrTable(id) {
     };
 
     $.filterList = function () {
-        var data = [];
+        var data = this.originRows.slice(0);
         if (Object.keys(this.props.filters).length > 0) {
-            for (var i in this.originRows) {
-                var row = this.originRows[i], cols = row.split(this.props.dataSplitter), match = true;
-                for (var c in cols) {
-                    if (this.props.filters[c]) {
-                        var value = cols[c], filter = this.props.filters[c].split(this.props.filterSplitter);
-                        switch (filter[0]) {
-                            case "isequal": match &= value === filter[1]; break;
-                            case "isnotequal": match &= value !== filter[1]; break;
-                            case "contains": match &= value.indexOf(filter[1]) !== -1; break;
-							case "notcontains": match &= value.indexOf(filter[1]) == -1; break;
-                            case "startswith": match &= value.indexOf(filter[1]) == 0; break;
-                            case "endswith": match &= value.indexOf(filter[1], value.length - filter[1].length) !== -1; break;
-                        }
-                    }
-                }
-                if (match) data.push(row);
-            }		
+            var cols = data[0].split(this.props.dataSplitter);
+            for (var col=0; col < cols.length; col++) {
+				data = this.doFilterList(data, col);
+            }
         }
-		else data = this.originRows.slice(0);
 		
 		if (this.props.sortingColumn !== -1) {
             reference = this;
             data.sort(this.sortComparator);
 		}
+        return data;
+    };
+
+    $.doFilterList = function (rows, col) {
+        var data = [];
+        for (var i in rows) {
+            var row = rows[i], cols = row.split(this.props.dataSplitter), match = true;
+            if (this.props.filters[col]) {
+                var value = cols[col], filter = this.props.filters[col].split(this.props.filterSplitter);
+				if (filter[2] && filter[2].length > 0) {
+					match = false;
+					var fdata = filter[2].split(this.props.filterDataSplitter);
+					for (var d in fdata) {
+						if (value == fdata[d]) { match = true; break; }
+					}
+				}
+                switch (filter[0]) {
+                    case "isequal": match &= value === filter[1]; break;
+                    case "isnotequal": match &= value !== filter[1]; break;
+                    case "contains": match &= value.indexOf(filter[1]) !== -1; break;
+					case "notcontains": match &= value.indexOf(filter[1]) == -1; break;
+                    case "startswith": match &= value.indexOf(filter[1]) == 0; break;
+                    case "endswith": match &= value.indexOf(filter[1], value.length - filter[1].length) !== -1; break;
+                }
+            }
+            if (match) data.push(row);
+        }
         return data;
     };
 
@@ -1076,8 +1109,13 @@ function nmdrTable(id) {
         this.selectedColumnOld = this.selectedColumn;
         this.selectedColumn = parseInt(id);
 
-        document.getElementById(this.id + "_nmdrTB_filterSelect").innerHTML = this.makeFilterPattern(false);
-        document.getElementById(this.id + "_nmdrTB_filterText").value = this.makeFilterPattern(true);
+        document.getElementById(this.id + "_nmdrTB_filterSelect").innerHTML = this.prepareFilterPattern(false);
+        document.getElementById(this.id + "_nmdrTB_filterText").value = this.prepareFilterPattern(true);
+
+		if (this.props.showFilterData) {
+			document.getElementById(this.id + "_nmdrTB_filterData").innerHTML = this.prepareFilterData();
+		}
+
         if (this.selectedColumnOld != -1) document.getElementById(this.id + "_nmdrTB_header_th" + this.selectedColumnOld).style.opacity = 1.0;
     };
 
@@ -1246,10 +1284,10 @@ function nmdrTable(id) {
         }
     };
 
-    $.handleCommand = function (event, name, row) {
+    $.handleCommand = function (event, name, row, leavOpen) {
 
-        if (this.headerMenuOpen) { this.closeHeaderMenu(name); return; }
-        if (this.rowMenuOpen) { this.closeRowMenu(name); return; }
+        if (this.headerMenuOpen && !leavOpen) { this.closeHeaderMenu(name); return; }
+        if (this.rowMenuOpen && !leavOpen) { this.closeRowMenu(name); return; }
 
 		if (event) nmdr.core.utils.stopPropagation(event);
 		if (row) this.selectRows(event, row);
@@ -1265,6 +1303,8 @@ function nmdrTable(id) {
             case "removeSorting": this.removeSorting(); break;
             case "setFilter": this.setFilter(); break;
             case "removeFilter": this.removeFilter(); break;
+			case "checkAllFilter": this.checkAllFilterCheckBox(); break;
+			case "uncheckAllFilter": this.uncheckAllFilterCheckBox(); break;
             case "setRowLimit": this.setRowLimit(); break;
             case "goToPage": this.goToPage(); break;
             case "openRow": this.openRow(row); break;
@@ -1281,27 +1321,6 @@ function nmdrTable(id) {
     $.handlePostBack = function (sels) {
         if (this.props.doPostBack) {
         }
-    };
-
-    $.makeFilterPattern = function (onlyValue) {
-        if (onlyValue) {
-            if (this.props.filters[this.selectedColumn]) return this.props.filters[this.selectedColumn].split(this.props.filterSplitter)[1];
-            return "";
-        }
-
-        var opt = "", fc = this.props.filters[this.selectedColumn] ? this.props.filters[this.selectedColumn].split(this.props.filterSplitter)[0] : "";
-        for (var i in this.props.patternNames) {
-            var p = this.props.patternNames[i].split("/");
-            switch (p[0]) {
-                case "is equal": opt += "<option value='isequal' " + (fc == "isequal" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
-                case "is not equal": opt += "<option value='isnotequal' " + (fc == "isnotequal" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
-                case "contains": opt += "<option value='contains' " + (fc == "contains" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
-                case "not contains": opt += "<option value='notcontains' " + (fc == "notcontains" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
-                case "starts with": opt += "<option value='startswith' " + (fc == "startswith" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
-                case "ends with": opt += "<option value='endswith' " + (fc == "endswith" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
-            }
-        }
-        return opt;
     };
 
     $.makeRowMenu = function () {
@@ -1328,54 +1347,88 @@ function nmdrTable(id) {
     $.makeHeaderMenu = function () {
         var buf = [];
         buf.push("<div class='nmdrTB_headerMenu'>");
-        buf.push("<table cellpadding='0' cellspacing='0' border='0' width='100%' height='100%'>");
-        buf.push("<tr>");
+        buf.push("<table cellpadding='0' cellspacing='0' border='0' width='100%' height='100%' style='table-layout:fixed'>");
+        
+		// Sorting
+		buf.push("<tr>");
         buf.push("<td>");
-        buf.push("<a href='#'><img src='" + this.props.imagePath + "spDoSortAZ.gif' style='border-style:none;'/></a>");
+        buf.push("<a href='#'><img src='" + this.props.imagePath + "spDoSortAZ.gif' style='border-style:none;'/></a>&nbsp;");
         buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'sortAZ');\" style='text-decoration:none;'>A-Z</a>");
         buf.push("</td>");
         buf.push("<td>");
         buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event);\">");
-        buf.push("<img src='" + this.props.imagePath + "spClosePopup.gif' style='border-style:none; vertical-align:middle;float:right;'/>");
-        buf.push("</a>");
+        buf.push("<img src='" + this.props.imagePath + "spClosePopup.gif' style='border-style:none; vertical-align:middle;float:right;'/></a>");
         buf.push("</td>");
         buf.push("</tr>");
         buf.push("<tr>");
         buf.push("<td colspan='2'>");
-        buf.push("<a href='#'><img src='" + this.props.imagePath + "spDoSortZA.gif' style='border-style:none;'/></a>");
+        buf.push("<a href='#'><img src='" + this.props.imagePath + "spDoSortZA.gif' style='border-style:none;'/></a>&nbsp;");
         buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'sortZA');\" style='text-decoration:none;'>Z-A</a>");
         buf.push("</td>");
         buf.push("</tr>");
         buf.push("<tr>");
-        buf.push("<td colspan='2' style='border-bottom:dotted; border-bottom-width:1px;'></td>");
-        buf.push("</tr>");
-        buf.push("<tr>");
         buf.push("<td colspan='2'>");
-        buf.push("<a href='#'><img src='" + this.props.imagePath + "spFilterdel.gif' style='border-style:none;'/></a>");
-        buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'removeFilter');\" style='text-decoration:none;'>" + this.props.removeFilterLable + "&nbsp;&nbsp;</a>");
-        buf.push("<a href='#'><img src='" + this.props.imagePath + "spSortdel.gif' style='border-style:none;'/></a>");
+        buf.push("<a href='#'><img src='" + this.props.imagePath + "spSortdel.gif' style='border-style:none;'/></a>&nbsp;");
         buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'removeSorting');\" style='text-decoration:none;'>" + this.props.removeSortingLable + "</a>");
         buf.push("</td>");
         buf.push("</tr>");
+        buf.push("<tr style='height:5px'><td colspan='2'></td></tr>");
+        buf.push("<tr><td colspan='2' style='border-bottom:dotted; border-bottom-width:1px;'></td></tr>");
+        buf.push("<tr style='height:5px'><td colspan='2'></td></tr>");
+		
+		// Filtering
         buf.push("<tr>");
         buf.push("<td colspan='2'>");
-        buf.push("<table>");
-        buf.push("<tr>");
-        buf.push("<td>");
-        buf.push("<span id='" + this.id + "_nmdrTB_filterColumnName'>Column</span>");
-        buf.push("</td>");
-        buf.push("<td>");
-        buf.push("<select id='" + this.id + "_nmdrTB_filterSelect'>" + this.makeFilterPattern(false) + "</select>");
-        buf.push("</td>");
-        buf.push("<td>");
-        buf.push("<input id='" + this.id + "_nmdrTB_filterText' type='text' name='columnfilter' size='10' value='" + this.makeFilterPattern(true) + "'/>");
-        buf.push("</td>");
-        buf.push("<td>");
-        buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'setFilter');\">");
-        buf.push("<img src='" + this.props.imagePath + "spFilterset.gif' style='border-style:none; vertical-align:middle;'/>");
-        buf.push("</a>");
+        buf.push("<a href='#'><img src='" + this.props.imagePath + "spFilter.png' style='border-style:none;'/></a>&nbsp;");
+        buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'setFilter');\" style='text-decoration:none;'>" + this.props.setFilterLable + "&nbsp;&nbsp;</a>");
         buf.push("</td>");
         buf.push("</tr>");
+        buf.push("<tr>");
+        buf.push("<td colspan='2'>");
+        buf.push("<a href='#'><img src='" + this.props.imagePath + "spFilterdel.gif' style='border-style:none;'/></a>&nbsp;");
+        buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'removeFilter');\" style='text-decoration:none;'>" + this.props.removeFilterLable + "&nbsp;&nbsp;</a>");
+        buf.push("</td>");
+        buf.push("</tr>");
+        buf.push("<tr>");
+        buf.push("<td colspan='2'>");
+        buf.push("<table border='0' width='100%' style='table-layout:fixed'>");
+        buf.push("<tr>");
+        buf.push("<td style='width:60px'>");
+        buf.push("<span id='" + this.id + "_nmdrTB_filterColumnName'>Column</span>");
+        buf.push("</td>");
+        buf.push("<td style='text-align:right'>");
+        buf.push("<select id='" + this.id + "_nmdrTB_filterSelect'>" + this.prepareFilterPattern(false) + "</select>&nbsp;");
+		buf.push("<input id='" + this.id + "_nmdrTB_filterText' type='text' name='columnfilter' size='10' value='" + this.prepareFilterPattern(true) + "'/>");
+		if (!this.props.showFilterData) {
+			buf.push("&nbsp;");
+			buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'setFilter');\">");
+			buf.push("<img src='" + this.props.imagePath + "spFilterset.gif' style='border-style:none; vertical-align:middle;'/>");
+			buf.push("</a>");
+			buf.push("</td>");
+			buf.push("</tr>");
+		}
+		else {
+			buf.push("</td>");
+			buf.push("</tr>");
+			buf.push("<style>.nmdrTBFcheckbox:hover {cursor:pointer; background:#0073C6; color:#FFFFFF;}</style>");
+			buf.push("<tr><td>Selection</td>");
+			buf.push("<td style='text-align:right'>");
+			buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'uncheckAllFilter', null, true);\">");
+			buf.push("<img src='" + this.props.imagePath + "spUncheckAll.gif' style='border-style:none; vertical-align:middle;'/>");
+			buf.push("</a>&nbsp;");
+			buf.push("<a href='' onClick=\"nmdr.core.$('" + this.id + "').handleCommand(event, 'checkAllFilter', null, true);\">");
+			buf.push("<img src='" + this.props.imagePath + "spCheckAll.gif' style='border-style:none; vertical-align:middle;'/>");
+			buf.push("</a>");
+			buf.push("</td>");
+			buf.push("</tr>");
+			buf.push("<tr>");
+			buf.push("<td colspan='2'>");
+			buf.push("<div id='" + this.id + "_nmdrTB_filterData' style='display:block;width:100%;height:108px;background:#fff;border:1px solid #ccc;overflow-x:hidden;overflow-y:auto;'>");
+			buf.push(this.prepareFilterData());
+			buf.push("</div>");
+			buf.push("</td>");
+			buf.push("</tr>");
+		}
         buf.push("</table>");
         buf.push("</td>");
         buf.push("</tr>");
@@ -1394,6 +1447,113 @@ function nmdrTable(id) {
         ];
 	};
 	
+    $.prepareFilterPattern = function (onlyValue) {
+		var fts = this.props.filters[this.selectedColumn] ? this.props.filters[this.selectedColumn].split(this.props.filterSplitter) : null;
+		
+        if (onlyValue) {
+            return fts ? fts[1] : "";
+        }
+
+        var opt = "", fc = fts ? fts[0] : "";
+        for (var i in this.props.patternNames) {
+            var p = this.props.patternNames[i].split("/");
+            switch (p[0]) {
+                case "is equal": opt += "<option value='isequal' " + (fc == "isequal" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
+                case "is not equal": opt += "<option value='isnotequal' " + (fc == "isnotequal" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
+                case "contains": opt += "<option value='contains' " + (fc == "contains" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
+                case "not contains": opt += "<option value='notcontains' " + (fc == "notcontains" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
+                case "starts with": opt += "<option value='startswith' " + (fc == "startswith" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
+                case "ends with": opt += "<option value='endswith' " + (fc == "endswith" ? "selected" : "") + ">" + (p[1] == "x" ? p[0] : p[1]) + "</option>"; break;
+            }
+        }
+        return opt;
+    };
+
+    $.prepareFilterData = function () {
+		if (this.selectedColumn == -1) return "";
+		
+		var colData = [], fts = [], buf = [];
+		
+		for (var i in this.originRows) {
+			var row = this.originRows[i], cols = row.split(this.props.dataSplitter);
+			colData.push(cols[this.selectedColumn]);
+		}
+
+		if (this.props.filters[this.selectedColumn]) {
+			fts = this.props.filters[this.selectedColumn].split(this.props.filterSplitter);
+			fts = fts.length > 2 ? fts[2].split(this.props.filterDataSplitter) : null;
+		}
+		
+        buf.push("<table width='100%' height='100%' cellpadding='0' cellspacing='0' border='0'>");
+
+        for (var i = 0; i < colData.length; i++) {
+            var cb = false;
+			if (fts && fts.length > 0) {
+				for (var f in fts) {
+					if (fts[f] == colData[i]) {
+						cb = true;
+						break;
+					}
+				}
+			}
+            var id = this.id + "_nmdrTB_FCBox" + i;
+            var im = this.props.imagePath + (cb ? "/checkboxon.png" : "/checkboxoff.png");
+
+            buf.push("<tr style='line-height:18px;'><td class='nmdrTBFcheckbox' id='" + id + "' " +
+                "onclick=\"nmdr.core.$('" + this.id + "').toggleFilterCheckBox(" + i + ");\">" +
+			    "<table cellpadding='2' cellspacing='0' border='0'><tr>" +
+				    "<td style='vertical-align:middle;'><img class='nmdrTBCB' id='" + id + "_img' " +
+					"name='" + colData[i] + "' checked='" + cb + "' src='" + im + "'></td>" +
+				    "<td style='vertical-align:middle;'><span>" + colData[i] + "</span></td>" +
+			    "</tr></table></td></tr>");
+        }
+
+        buf.push("</table>");
+		return buf.join("");
+	};
+
+    $.toggleFilterCheckBox = function (nr) {
+        var img = document.getElementById(this.id + "_nmdrTB_FCBox" + nr + "_img");
+		var chk = img.getAttribute("checked");
+		var ch = chk == "true" ? false : true;
+		var im = this.props.imagePath + (ch ? "/checkboxon.png" : "/checkboxoff.png");
+		img.setAttribute("checked", ch);
+        img.src = im;
+    };
+
+    $.checkAllFilterCheckBox = function () {
+		var elem = document.getElementById(this.id + "_nmdrTB_filterData");
+		var cboxes = elem.getElementsByClassName("nmdrTBCB");
+        for (var i=0; i < cboxes.length; i++) {
+			cboxes[i].src = this.props.imagePath + "/checkboxon.png";
+			cboxes[i].setAttribute("checked", "true");
+		}
+    };
+
+    $.uncheckAllFilterCheckBox = function () {
+		var elem = document.getElementById(this.id + "_nmdrTB_filterData");
+		var cboxes = elem.getElementsByClassName("nmdrTBCB");
+        for (var i=0; i < cboxes.length; i++) {
+			cboxes[i].src = this.props.imagePath + "/checkboxoff.png";
+			cboxes[i].setAttribute("checked", "false");
+		}
+    };
+
+    $.getFilterData = function () {
+		if (!this.props.showFilterData) return "";
+		
+		var elem = document.getElementById(this.id + "_nmdrTB_filterData");
+		var cboxes = elem.getElementsByClassName("nmdrTBCB");
+        var checkeds = "";
+        for (var i=0; i < cboxes.length; i++) {
+			var chk = cboxes[i].getAttribute("checked");
+			if (chk == "true") {
+				checkeds += (checkeds == "" ? "" : this.props.filterDataSplitter) + cboxes[i].getAttribute("name");
+			}
+        }
+        return checkeds;
+    };
+
     $.prepareData = function () {
 		var columns = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],
             s = this.props.dataSplitter, 
@@ -1432,4 +1592,3 @@ function nmdrTable(id) {
 	*/
     return $;
 }
-

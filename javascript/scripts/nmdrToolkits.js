@@ -1738,7 +1738,7 @@ function nmdrCalendar(id) {
         buf.push(pfx + " .dayspan:hover, .dayspan_ho:hover {font-weight:bold;}");
         buf.push(pfx + " .dayspan_ho {color:#a1d490 !important; font-size:" + (this.fontSize + 3) + "px;font-weight:bold;}");
 		
-		buf.push(pfx + " .monthsdiv, .yearsdiv {overflow:hidden;background:white;box-shadow:3px 3px 3px #eee;transition:all 0.3s ease-in-out; -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out;}");
+		buf.push(pfx + " .monthsdiv, .yearsdiv {overflow:hidden;background:white;box-shadow:0 4px 8px 0 #eeee,0 6px 20px 0 #cccc;transition:all 0.3s ease-in-out; -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out;}");
         buf.push(pfx + " .monthstable, .yearstable {border:1px solid #ccc;}");
         buf.push(pfx + " .monthstable td {width:46px;height:24px;cursor:pointer;text-align:left;font-size:12px;font-weight:normal;padding-left:5px;}");
         buf.push(pfx + " .yearstable td {width:26px;height:24px;cursor:pointer;text-align:center;font-size:12px;font-weight:normal;}");

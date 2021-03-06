@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html><head>
-<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
 <title>nmdrToolkits UI-Framework</title>
 
 <style type="text/css">
@@ -184,7 +184,26 @@
 	<script type="text/javascript" language="javascript">nmdr.core.tooltips.start();</script>
 </div>
 
-<div id="MultiSelect" style="position:absolute;left:450px; top:320px">
+<div id="CheckboxList" style="position:absolute;left:450px; top:320px">
+<script type="text/javascript" language="javascript">
+
+nmdr.loadModule("checkboxList", function() {
+	var ms = nmdr.checkboxList("CheckboxList").build(
+	[
+		{title:'Checkbox1', checked:false}, 
+		{title:'Checkbox2', checked:true}, 
+		{title:'Checkbox3', checked:false}, 
+		{title:'Checkbox4', checked:false}, 
+		{title:'Checkbox5', checked:false}, 
+		{title:'Checkbox6', checked:false}, 
+		{title:'Checkbox7', checked:false}, 
+	], 180, 140);
+});
+	
+</script>
+</div>
+
+<div id="MultiSelect" style="position:absolute;left:680px; top:320px">
 <script type="text/javascript" language="javascript">
 
 nmdr.loadModule("multiSelect", function() {

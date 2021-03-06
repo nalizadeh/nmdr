@@ -82,6 +82,7 @@ var nmdr = nmdr || {
 			"favorites": 	{methode: "nmdrFavorites"},
 			"layout": 		{methode: "nmdrLayout"},
 			"menu": 		{methode: "nmdrMenu"},
+			"checkboxList":	{methode: "nmdrCheckboxList"},
 			"multiSelect": 	{methode: "nmdrMultiSelect"},
 			"phpCalendar": 	{methode: "nmdrPHPCalendar"},
 			"pixshow": 		{methode: "nmdrPixShow"},

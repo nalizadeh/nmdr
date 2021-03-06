@@ -1,4 +1,4 @@
-/*
+﻿/*
 Copyright (C) 2015-2018 nalizadeh.com
 
 This program is free software: you can redistribute it and/or modify 
@@ -285,7 +285,7 @@ function nmdrCalendar(id) {
         buf.push(pfx + " .cell_pa {opacity: 0.3;background:" + this.notCurrentMonthBG + "}");
         buf.push(pfx + " .cell_ss {color:" + this.saturdaySundayFC + ";background:" + this.saturdaySundayBG + "}");
         buf.push(pfx + " .cell_to {background:" + this.todayBackground + " !important;color:#fff !important;" + (this.fontSize + 2) + "px;font-weight:bold;}");
-        buf.push(pfx + " .cell_se {background:" + this.cellSelectionBG + ";color:" + this.cellSelectionFC + " !important;font-weight:bold;}");
+        buf.push(pfx + " .cell_se {background:" + this.cellSelectionBG + ";color:" + this.cellSelectionFC + ";font-weight:bold;}");
         buf.push(pfx + " .cell_ar {text-align:center;background:" + this.headerBackground + ";opacity: 0.4;}");
         buf.push(pfx + " .img {cursor:pointer; opacity: 1;}");
         buf.push(pfx + " .img:hover {opacity: 0.7;}");
@@ -300,7 +300,7 @@ function nmdrCalendar(id) {
         buf.push(pfx + " .dayspan:hover, .dayspan_ho:hover {font-weight:bold;}");
         buf.push(pfx + " .dayspan_ho {color:#a1d490 !important; font-size:" + (this.fontSize + 3) + "px;font-weight:bold;}");
 		
-		buf.push(pfx + " .monthsdiv, .yearsdiv {overflow:hidden;background:white;box-shadow:3px 3px 3px #eee;transition:all 0.3s ease-in-out; -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out;}");
+		buf.push(pfx + " .monthsdiv, .yearsdiv {overflow:hidden;background:white;box-shadow:0 4px 8px 0 #eeee,0 6px 20px 0 #cccc;transition:all 0.3s ease-in-out; -webkit-transition:all 0.3s ease-in-out; -moz-transition:all 0.3s ease-in-out; -o-transition:all 0.3s ease-in-out;}");
         buf.push(pfx + " .monthstable, .yearstable {border:1px solid #ccc;}");
         buf.push(pfx + " .monthstable td {width:46px;height:24px;cursor:pointer;text-align:left;font-size:12px;font-weight:normal;padding-left:5px;}");
         buf.push(pfx + " .yearstable td {width:26px;height:24px;cursor:pointer;text-align:center;font-size:12px;font-weight:normal;}");
@@ -424,7 +424,7 @@ function nmdrCalendar(id) {
                 if (start && !end) {
                     p++;
                     m = true;
-                    //if (this.dayIndex === -1 && dd === d.getDate()) this.dayIndex = ind;  // <== if each month should have a selected day then comment in this line!
+                    if (this.dayIndex === -1 && dd === d.getDate()) this.dayIndex = ind;  // <== if each month should have a selected day then comment in this line!
                 }
                 else if (!start) d = new Date(prevMonthDays[prevMonthDays.length - s + c]);
                 else if (end) d = new Date(nextMonthDays[q++]);
