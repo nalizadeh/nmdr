@@ -1,0 +1,22 @@
+21ba87de-61ea-43ee-8c57-77f659e1bd8e;Nader;07/22/2017;08/02/2017;Urlaub;in Malaga
+9849abe0-a560-43a0-90ad-c02880c8e7ee;David;07/25/2017;07/25/2017;Termin;10 Uhr
+edcb42d9-2af4-4306-8931-3f209699e0f0;Nader;07/07/2017;07/07/2017;Termin;14-15:30 Uhr
+2f66da9b-aa59-40a9-be9e-69ad3b01f118;Nader;09/21/2017;09/22/2017;Frei;Unterwegs mit David
+513f297b-4da2-4c97-a53e-68cbcf4240e4;Nader;08/03/2017;08/18/2017;Urlaub;Zuhause
+b1bf3dc7-f981-4f71-bc48-817b35ed976a;Nader;10/16/2017;10/24/2017;Urlaub;Schulferien
+54c3f92e-5a6b-4580-b391-a8964025b37a;Nader;09/27/2017;09/27/2017;Termin;14:00 Uhr Austausch!
+7f028503-af5d-4332-a99e-73cd27c688a4;Nader;10/02/2017;10/02/2017;Frei;nehme frei
+17aebfe8-364c-4361-b4e6-d208835b802a;Nader;10/30/2017;10/30/2017;Frei;nehme frei
+27649748-12a1-4312-a87e-e264446cb7df;Nader;12/22/2017;01/03/2018;Urlaub;weihnachten
+6b8faae0-612a-41d7-94b5-e7e5b1e470da;Nader;10/13/2017;10/13/2017;Termin;Austausch
+3b9a4856-0914-4f2b-a5f2-660e9d58f382;Nader;03/05/2018;03/09/2018;Urlaub;Zuhause
+52eb69d0-b231-4c95-a351-a8713a95c750;Nader;05/07/2018;05/15/2018;Urlaub;noch nicht geplant
+8372faf0-d511-4449-95a3-d4d8b6591103;Nader;07/19/2018;08/10/2018;Urlaub;Spanien
+1fb5ac61-2d6b-451b-98b5-716f7f57b9d6;Nader;10/01/2018;10/05/2018;Urlaub;Herbst
+4e18fec4-7008-49fc-9588-453baafcb860;Nader;02/26/2018;02/27/2018;Termin;Salzhausen
+da3185ba-50c0-4de0-9d12-446797bbef24;Nader;03/26/2018;03/26/2018;Frei;Zuhause arbeiten
+db877ab5-b761-42fb-840d-ce2fc21da77d;Nader;04/23/2018;04/24/2018;Termin;KISS24 Tagung
+413edf94-9399-4db4-beb0-179b800dcc56;Nader;05/29/2018;05/30/2018;Termin;Tagung Inovations
+f61644bb-386a-46da-bd35-e3c1e39ac375;Nader;06/23/2018;06/23/2018;Termin;Arbeit
+059cc0cd-1808-4dd0-804c-079f6c82a082;Nader;06/30/2018;06/30/2018;Termin;Arbeit
+716f3643-d779-428a-9f94-d1baed24d423;Nader;07/07/2018;07/07/2018;Termin;Arbeit

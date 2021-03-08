@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits UI-Framework</title>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+</head>
+<body>
+<table border='1' cellpadding='6' cellspacing='0'>
+	<tr>
+		<td colspan=2>
+			<canvas id="aclock" width="100" height="100" style="background-color:#333"></canvas>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div id='dclock'></div>
+		</td>
+		<td>
+			<div id='dclock2'>
+			</div>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+nmdr.loadModules(["aClock", "dClock", "dClockCss"], function() {
+	nmdr.aClock("aclock").start();
+	nmdr.dClock('dclock').start();
+	nmdr.dClockCss('dclock2').start();
+});
+</script>
+
+</body>
+</html>
