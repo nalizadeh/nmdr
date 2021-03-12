@@ -14,14 +14,15 @@
 		nmdr.loadModule("table", function() {
 			var tb = nmdr.table('XLISTVIEW');
 			tb.getColumnWidth = function(col) { return 120; };
-			tb.init(
+			tb.build(
 			{
 				dummyCols: 9,
 				dummyRows: 1000,
 				showHeader: true,
 				showFooter: true,
 				showShadow: true,
-				//showRowCommands: true,
+				showRowCommands: true,
+				columnsResizable: true,
 				menuColumn: 2,
 				rowLimit: 50,
 				sortingColumn: 3,

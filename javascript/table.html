@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="ht/highlight.css">
 
 <script src="ht/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>hljs.buildHighlightingOnLoad();</script>
 
 <script type="text/javascript" src="scripts/nmdr-min.js"></script>
 
@@ -49,11 +49,11 @@ function showTable4() {
 }
 
 function makeTableA() {
-	nmdr.table('div-A').init();
+	nmdr.table('div-A').build();
 }
 
 function makeTableB() {
-	nmdr.table('div-B').init({
+	nmdr.table('div-B').build({
 		dummyCols: 12,
 		dummyRows: 1000,
 		showHeader: true,
@@ -64,7 +64,7 @@ function makeTableB() {
 function makeTableC() {
 	var tb = nmdr.table('div-C');
 	tb.getColumnWidth = function(col) { return 120; };
-	tb.init(
+	tb.build(
 	{
 		dummyCols: 5,
 		dummyRows: 500,
@@ -94,7 +94,7 @@ function makeTableD() {
 		return { columns: ["Name", "Adress", "Email", "Phone"], rows: rowdata };
 	};
 	
-	tb.init(
+	tb.build(
 	{
 		showHeader: true,
 		showFooter: true,
@@ -180,7 +180,7 @@ function makeTabsD() {
 	</tr>
 	
 	<!-- ########################################################################################### -->
-	<tr><td class="title-td"><span>Example 4 - with user data and predefined sorting column, predefined multiple filtering </span></td></tr>
+	<tr><td class="title-td"><span>Example 4 - with user data, multiple selection, predefined sorting column, predefined multiple filtering and column resizing </span></td></tr>
 	<tr>
 		<td><div id="tabsd"></div></td>
 	</tr>
@@ -202,7 +202,7 @@ function makeTabsD() {
 <!-- --------------------------------------------------------------- -->
 <div id="ttab1a">
 	<pre><code class="javascript">
-nmdr.table('div-A').init();
+nmdr.table('div-A').build();
 	</code></pre>
 </div>
 <div id="ttab2a">
@@ -222,7 +222,7 @@ nmdr.table('div-A').init();
 <!-- --------------------------------------------------------------- -->
 <div id="ttab1b">
 	<pre><code class="javascript">
-nmdr.table('div2').init({
+nmdr.table('div2').build({
 	dummyCols: 12,
 	dummyRows: 1000,
 	showHeader: true,
@@ -249,7 +249,7 @@ nmdr.table('div2').init({
 	<pre><code class="javascript">
 var tb = nmdr.table('div-C');
 tb.getColumnWidth = function(col) { return 120; };
-tb.init(
+tb.build(
 {
 	dummyCols: 5,
 	dummyRows: 500,
@@ -295,7 +295,7 @@ tb.prepareData = function () {
 	return { columns: ["Name", "Adress", "Email", "Phone"], rows: rowdata };
 };
 
-tb.init(
+tb.build(
 {
 	showHeader: true,
 	showFooter: true,

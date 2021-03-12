@@ -34,8 +34,8 @@ function makeRibbon(id) {
 					        "image='img/absence/EditRequest.png'>" +
 				    "</Button>" +
 				    "<Button id='WithdrawRequest' " +
-					        "text='Antrag zurückziehen' " +
-					        "tooltip='Antrag zurückziehen' " +
+					        "text='Antrag zurÃ¼ckziehen' " +
+					        "tooltip='Antrag zurÃ¼ckziehen' " +
 					        "command='WithdrawRequest' " +
 							"enabled='false' " +
 					        "size='32' " +
@@ -87,8 +87,8 @@ function makeRibbon(id) {
 					        "image='img/absence/ViewYear.png'>" +
 				    "</Button>" +
 				    "<Button id='NextYearView' " +
-					        "text='Nächstes Jahr anzeigen' " +
-					        "tooltip='Nächstes Jahr anzeigen' " +
+					        "text='NÃ¤chstes Jahr anzeigen' " +
+					        "tooltip='NÃ¤chstes Jahr anzeigen' " +
 					        "command='NextYearView' " +
 							"enabled='true' " +
 					        "size='32' " +
@@ -159,7 +159,7 @@ function makeMeinAntraege(id) {
         return data;
 	};
 	 
-	tb.init(
+	tb.build(
 		{
 			clientHandling: true,
 			imagePath: 'img/',
@@ -193,7 +193,7 @@ function makeMeinAntraege(id) {
 	
 	<tr>
 		<td style='width:40%; vertical-align:top;'>
-			<span style='font:bold 18px "Segoe UI",Tahoma,Verdana,sans-serif'>Meine Anträge</span><br><br>
+			<span style='font:bold 18px "Segoe UI",Tahoma,Verdana,sans-serif'>Meine AntrÃ¤ge</span><br><br>
 			<div id='MeinAntraege'>
 				<script type="text/javascript"></script>
 			</div>
