@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits PhotoShow</title>
+
+<style type="text/css">
+* {margin:0; padding:0; }
+</style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+</head>
+<body style='background:#000;padding-top:10px;'>
+<center>
+<br>
+<div id="ALBUM">
+<script type="text/javascript">
+
+nmdr.loadModule("pixshow", function() {
+
+	var psData = {
+		width: 800, 
+		height: 600, 
+		thumbWidth: 100, 
+		thumbHeight: 68, 
+		originWidth: 1000,
+		originHeight: 750,
+		
+		albums:  
+		[
+			{
+				title: "Fat Chance Titanium",
+				description: "93 Fat Chance Titanium",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "fatti.jpg",
+				path: "fatti/",
+				picname: "fatti",
+				order: true,
+				picsCount: 63
+			},
+			{
+				title: "GT Xizang",
+				description: "96 GT Xizang, the best of GT",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "xizang.jpg",
+				path: "xizang/",
+				picname: "xizang",
+				order: false,
+				picsCount: 68
+			},
+			{
+				title: "Yeti F.R.O",
+				description: "1988 Yeti F.R.O",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "yeti.jpg",
+				path: "yeti/",
+				picname: "yetifro",
+				order: false,
+				picsCount: 148
+			},
+			{
+				title: "Merlin",
+				description: "1991 Merlin Mountain",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "merlin.jpg",
+				path: "merlin/",
+				picname: "merlin",
+				order: false,
+				picsCount: 88
+			},
+			{
+				title: "Trek 8000",
+				description: "1992 TREK 8000",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "trek.jpg",
+				path: "trek/",
+				picname: "trek",
+				order: false,
+				picsCount: 55
+			},
+			{
+				title: "Yo Eddy Aqua",
+				description: "1993 Yo Eddy Aqua Fade",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "yo-eddy-aquafade.jpg",
+				path: "yo-eddy-aquafade/",
+				picname: "yoaqfa",
+				order: false,
+				picsCount: 96
+			},
+			{
+				title: "KLEIN Attitude",
+				description: "1991 KLEIN Attitude",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "klein-attitude.jpg",
+				path: "klein-attitude/",
+				picname: "klein",
+				order: false,
+				picsCount: 126
+			},
+			{
+				title: "Yo Eddy",
+				description: "1994 Yo Eddy Glossy black",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "yo-eddy-black.jpg",
+				path: "yo-eddy-black/",
+				picname: "yoeddy",
+				order: false,
+				picsCount: 83
+			},
+			{
+				title: "Kuwahara",
+				description: "1990 Kuwahara Gepard",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "kuwahara.jpg",
+				path: "kuwahara/",
+				picname: "kuw",
+				order: false,
+				picsCount: 60
+			},
+			{
+				title: "Yo Eddy Grello",
+				description: "1993 Yo Eddy Grello",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "yo-eddy-grello.jpg",
+				path: "yo-eddy-grello/",
+				picname: "yo-eddy",
+				order: true,
+				picsCount: 292
+			},
+			{
+				title: "Marin Pine FRS",
+				description: "1993 Marin Pine FRS",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "marin-pine-frs.jpg",
+				path: "marin-pine-frs/",
+				picname: "marinfrs",
+				order: false,
+				picsCount: 96
+			},
+			{
+				title: "Koga Miyata Ridge Runner",
+				description: "1990 Koga Miyata Ridge Runner",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "koga-miyata.jpg",
+				path: "koga-miyata/",
+				picname: "koga",
+				order: false,
+				picsCount: 78
+			},
+			{
+				title: "Marin Pine Mountain",
+				description: "1995 Marin Pine Mountain",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "marin-pine-mountain.jpg",
+				path: "marin-pine-mountain/",
+				picname: "marinpm",
+				order: false,
+				picsCount: 81
+			},
+			{
+				title: "Fischer Cruiser",
+				description: "Fischer Cruiser",
+				url: "http://www.nalizadeh.com/classic/gallery/",
+				image: "fischer.jpg",
+				path: "fischer/",
+				picname: "fischer",
+				order: false,
+				picsCount: 33
+			},
+		]
+	};
+	
+    nmdr.pixshow('ALBUM').init(psData);
+});
+</script>			   
+</div>
+
+</body>    
+</html>

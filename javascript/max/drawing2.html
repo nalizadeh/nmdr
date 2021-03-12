@@ -1,0 +1,102 @@
+<html lang="fr">
+<head>
+<style>
+
+#line {
+position: absolute;
+top: 50px;
+left: -100px;
+width: 500px;
+margin: 0;
+-webkit-transform: rotateZ(53.1deg);
+border-width: 1px;      border-style: solid;                          
+border-image: linear-gradient(to right, #ffffff 0%,#ffffff 49%,#000000 50%,#000000 100%) 1;
+}
+
+#p1 {
+border-radius: 5px;
+width: 10px;
+background: #000;
+position: absolute;
+height: 10px;
+top: 45px;
+left: 145px;
+}
+
+#p2 {
+border-radius: 5px;
+width: 10px;
+background: #000;
+position: absolute;
+height: 10px;
+top: 245px;
+left: 295px;
+}
+
+</style>
+
+<script>
+    window.addEventListener("load",function(){
+        function pow2(n){
+            return n*n;
+        }   
+
+        var p1 = {
+            id:"p1",
+            x:150,
+            y:50
+        };
+        var p2 = {
+            id:"p2",
+            x:300,
+            y:250
+        };
+        var select = null;
+
+        function getAngle(){
+
+            var dist = Math.sqrt(pow2(p1.x-p2.x)+pow2(p1.y-p2.y));
+            var l = document.getElementById("line");
+            var cos = (p2.x-p1.x)/Math.sqrt(pow2(p2.x-p1.x)+pow2(p2.y-p1.y));
+            var behind = p1.x < p2.x;
+            var higher = p1.y > p2.y;
+            l.style.width = (dist*2)+"px";
+            l.style.left = (p1.x-dist)+"px";
+            l.style.top = (p1.y)+"px";
+
+            l.style.transform = "rotateZ("+(higher?-1:1)*Math.acos(cos)*(180/Math.PI)+"deg)";
+        }
+
+        var down = false
+
+        document.addEventListener("mousemove",function(e){
+            if(select){
+                select.x = e.pageX;
+                select.y = e.pageY;
+                console.log(p1);
+                var p = document.getElementById(select.id);
+                p.style.left = (select.x-5)+"px";
+                p.style.top = (select.y-5)+"px";
+                getAngle();
+            }
+        });
+        document.addEventListener("mouseup",function(e){
+            if(!select)
+                select = p1;
+            else if(select == p1)
+                select = p2;
+            else 
+                select = null;
+        });
+        document.addEventListener("mousedown",function(e){
+            down = true;
+        });
+    });
+</script>
+</head>
+<body>
+<hr id="line"/>
+<div id="p1"></div>
+<div id="p2"></div>
+</body>
+</html>

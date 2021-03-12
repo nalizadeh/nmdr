@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits Fovorits</title>
+
+<style type="text/css">
+* {margin:30; padding:0; }
+.welcome {font:16px Verdana,Arial; color:#083}
+.description {font:14px Verdana,Arial; color:black}
+.Instructions {font-family:Verdana,Arial; font-size:15px; font-weight:bold; color:black}
+.explain {font:12px Verdana,Arial; color:black}
+code {color:red}
+</style>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+
+function makeFavorites() {
+
+	var xml = 
+		"<?xml version=\"1.0\"?>" +
+		"<menus>" +
+			"<menu id='Menu1'>"+
+				"<menuitem title='1996 GT Xizang'>"+
+					"<item title='1988 Yeti F.R.O' url='#'>Hallo World!</item>" +
+					"<item title='1991 Merlin Mountain' url='#'></item>" +
+				"</menuitem>"+
+				"<item title='1991 TREK 8000' url='#'></item>"+
+				"<item title='Klein Androit 1996' url='#'></item>"+
+				"<menuitem title='Kleins'>"+
+					"<item title='1988 Yeti F.R.O' url='#'></item>"+
+					"<item title='1991 Merlin Mountain' url='#'></item>"+
+					"<menuitem title='Kleins - Ab 1996'>"+
+						"<item title='Androit' url='#'></item>"+
+						"<item title='Atitute' url='#'></item>"+
+						"<item title='Pinacle' url='#'></item>"+
+						"<item title='Atitute' url='#'></item>"+
+						"<menuitem title='Kleins - Ab 2000'>"+
+							"<item title='KLEIN Trek' url='#'></item>"+
+						"</menuitem>"+			
+					"</menuitem>"+			
+				"</menuitem>"+			
+			"</menu>"+
+
+			"<menu id='Menu2'>"+
+				"<item title='1993 Yo Eddy Aqua Fade' url='#'></item>"+
+				"<item title='1991 KLEIN Attitude' url='#'></item>"+
+			"</menu>"+
+			
+			"<menu id='Menu3'>"+
+				"<item title='1994 glossy black Yo Eddy' url='#'></item>"+
+				"<item title='1990 Kuwahara Gepard' url='#'></item>"+
+				"<item title='1993 FAT Chance Yo Eddy Grello' url='#'></item>"+
+			"</menu>"+	
+			
+			"<menu id='Menu4'>"+
+				"<item title='1994 Marin Pine FRS' url='#'></item>"+
+				"<item title='1990 Koga Miyata Ridge Runner' url='#'></item>"+
+			"</menu>"+
+			
+			"<menu id='Menu5'>"+
+				"<item title='1995 Marin pine mountain' url='#'></item>"+
+				"<item title='1994 fischer cruiser' url='#'></item>"+
+			"</menu>"+		
+		"</menus>";
+		
+	nmdr.favorites("MyFav").init(1000, 300, "img/", xml);
+}
+
+function makeFavoritse2() {
+
+	var myFav = nmdr.favorites("MyFav");
+
+	var menu1 = myFav.addMenu("Landscapes");
+	var menu2 = myFav.addMenu("Animals");
+	var menu3 = myFav.addMenu("Flowers");
+
+	var item1 = myFav.addItem(menu1, null, "Europe","#", true);
+	myFav.addItem(menu1, item1, "Europe1","#");
+	myFav.addItem(menu1, item1, "Europe2","#");
+	myFav.addItem(menu1, null, "Africa","#");
+	myFav.addItem(menu1, null, "Asia","#");
+	
+	var item2 = myFav.addItem(menu1, null, "Australia","#", true);
+	myFav.addItem(menu1, item2, "Australia1","#");
+	myFav.addItem(menu1, item2, "Australia2","#");
+	
+	var item3 = myFav.addItem(menu1, item2, "West Australia","#". true);
+	myFav.addItem(menu1, item3, "Perth","#");
+
+	myFav.addItem(menu2, null, "Sea Animals","#");
+	myFav.addItem(menu2, null, "Predators","#");
+		
+	myFav.init(1000, 300, "img/");
+}
+
+</script> 
+
+</head>
+<body>
+
+<center>
+<div id="MyFav">FAVORITS</div><br>
+</center>
+
+<table border='0' cellpadding='0' cellspacing='0'>
+	<tr>
+		<td style='text-align:left'>
+			<div>
+				<br><br>
+				<span class='description'>This is the nmdrFavorits component</span><br><br>
+				<span class='Instructions'>Instructions</span><br><br>
+				<span class='explain'>To initialize a nmdrFavorits use the following code:</span><br><br>
+				<code><br>As XML definition:<br><br>
+					<img src='img/tutorial/img4.png'><br>
+					<br>Or with function calls:<br><br>
+					<img src='img/tutorial/img5.png'>
+				</code><br>
+			</div>
+		</td>
+		<td><img src='img/tutorial/img0.png'></td>
+		<td><img src='img/tutorial/img3.png'></td>
+	</tr>
+	<tr>
+		<td colspan=3 style='height:20px'></td>
+	</tr>
+	<tr>
+		<td colspan=3 style='text-align:left'>
+			<span class='explain'>
+				Your html should contain a div with id <b>'MyFav'</b><br>
+				The constructor function takes 1 parameter: the id of the "div" which will be build as favorits menu<br>
+				The method "init" takes 2 or 3 parameters: the width and height of menu and the location of img. The last optional parameter is used if you define menu as XML.<br>
+			</span><br><br><br>
+		</td>
+	</tr>
+	<tr>
+		<td colspan=3 style='text-align:left'>
+			<span class='Instructions'>
+				Public interfaces
+			</span><br><br><br>
+		</td>
+	</tr>
+	<tr>
+		<td style='text-align:left'><img src='img/tutorial/img6.png'></td>
+		<td style='text-align:left'><img src='img/tutorial/img0.png'></td>
+		<td style='text-align:left'><img src='img/tutorial/img7.png'></td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+nmdr.loadModule("favorites", makeFavorites);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits Listviewer</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+</head>
+<body>
+<div id="XLISTVIEW" style="height:300px;">
+	<script type="text/javascript">
+		nmdr.loadModule("table", function() {
+			var tb = nmdr.table('XLISTVIEW');
+			tb.getColumnWidth = function(col) { return 120; };
+			tb.build(
+			{
+				dummyCols: 9,
+				dummyRows: 1000,
+				showHeader: true,
+				showFooter: true,
+				showShadow: true,
+				showRowCommands: true,
+				columnsResizable: true,
+				menuColumn: 2,
+				rowLimit: 50,
+				sortingColumn: 3,
+				sortingDirection: 'SortZA',
+				showGrids: true,
+				scrollable: true,
+			});
+		});
+	</script>			   
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="cotabsetabs-type" cotabsetabs="text/html; charset=utf-8">
+<title>Test</title>
+
+<style type="text/css">
+
+body {
+ 	padding:0;
+	margin:0;
+	-moz-user-select: -moz-none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+    position: static !important;
+    margin-top: 0px !important;
+    border: 0 !important;
+}
+
+.oneDriveBubble {
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 0px;
+    padding: 10px;
+    position: absolute;
+}
+
+.oneDriveBubble .arrow {
+    border-style: solid;
+    position: absolute;
+}
+
+.top {
+    border-color: transparent transparent #000000 transparent;
+    border-width: 0px 10px 10px 10px;
+    top: -10px;
+}
+
+.top:after {
+    border-color: transparent transparent #ffffff transparent;
+    border-style: solid;
+    border-width: 0px 9px 9px 9px;
+    top: 1px;
+    content: "";
+    position: absolute;
+    left: -9px;
+}
+
+.bottom {
+    border-color: #000000 transparent transparent transparent;
+    border-width: 10px 10px 0px 10px;
+    bottom: -10px;
+}
+
+.bottom:after {
+    border-color: #ffffff transparent transparent transparent;
+    border-style: solid;
+    border-width: 9px 9px 0px 9px;
+    bottom: 1px;
+    content: "";
+    position: absolute;
+    left: -9px;
+}
+
+.OneDriveNavi {
+	width:100%;
+	height:50px;
+    line-height: 52px;
+	padding:0;
+	margin:0;
+	vertical-align:middle;
+	text-align:center;
+	background:black;
+	font-family:"Segoe UI Web Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol",HelveticaNeue-Light,"Helvetica Neue",Arial,sans-serif;
+	font-size:88%;
+}
+
+.OneDriveNaviImg {
+	background:#094ab2;
+    float: left;
+    display: block;
+    height: 50px;
+    width: 50px;
+	vertical-align:middle;
+	text-align:center;
+    border-right: 1px solid rgba(255, 255, 255, .3);
+    position: relative;
+    text-decoration: none;
+}
+
+.OneDriveNaviTitle {
+	background:#094ab2;
+	color:#fff;
+    float: left;
+    display: block;
+    height: 50px;
+    width: 150px;
+	vertical-align:middle;
+	text-align:center;
+    position: relative;
+    text-decoration: none;
+	font-size:154%;
+	line-height: 45px;
+}
+
+.OneDriveNaviImg:hover, .OneDriveNaviTitle:hover {
+	background:#08419D;
+    cursor: pointer;
+}
+
+.OneDriveNaviItem {
+	color:#fff;
+    float: left;
+    display: block;
+    height: 50px;
+	vertical-align:middle;
+	text-align:center;
+    position: relative;
+    text-decoration: none;
+	line-height: 45px;
+	padding: 0 10px 0 10px;
+	margin: 0 10px 0 10px;
+}
+
+.OneDriveNaviSettings {
+    float: right;
+    display: block;
+    height: 50px;
+    width: 30px;
+	vertical-align:middle;
+	text-align:center;
+    position: relative;
+    text-decoration: none;
+	line-height: 50px;
+	padding: 0 10px 0 10px;
+	margin: 0 10px 0 10px;
+}
+
+.OneDriveNaviItem:hover, .OneDriveNaviSettings:hover {
+	background:#444;
+    cursor: pointer;
+}
+
+#OneDriveMenu {
+    display: none;
+    height: 240px;
+    width: 600px;
+}
+
+#OneDriveMenuContent {
+}
+
+.OneDriveAppDiv {
+	background:#ffffff;
+    float: left;
+    display: block;
+    height: 102px;
+    width: 110px;
+	vertical-align:middle;
+	text-align:center;
+    position: relative;
+    text-decoration: none;
+    padding-top: 8px;
+	margin: 4px;
+    border: 1px solid #bbb;
+	box-shadow: 2px 2px 2px #bbb;
+	-moz-box-shadow: 2px 2px 2px #bbb;
+	-webkit-box-shadow: 2px 2px 2px #bbb;
+}
+
+.OneDriveAppDiv:hover {
+	box-shadow: 0 0 2px 2px #bbb;
+	-moz-box-shadow: 0 0 2px 2px #bbb;
+	-webkit-box-shadow: 0 0 2px 2px #bbb;
+	cursor: pointer;
+}
+
+#AppsIFrame {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+</style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+<script type="text/javascript">
+
+
+window.onload = function () {
+	window.addEventListener('resize', function () { setIFrameSize(); });
+	document.getElementById('AppsIFrame').onmouseover = function (e) { nmdr.core.popup.closeX(); }
+	setIFrameSize();
+	getApps();
+}
+
+function openMenu(elem) {
+	nmdr.core.popup.openX(document.getElementById('OneDriveMenu'), elem, 5, 50, null, null);
+}
+
+function getApps() {
+    var myapps =
+    [
+        "ProviderHostedAppJSom;{7225DE86-11A5-45B8-A853-308CD7FA05F7}",
+        "ProviderHostedAppCSom;{DBE23FF5-5B56-47D5-A182-5EBA809885AC}",
+        "BasicDataOperationsJSom;{7225DE86-11A5-45B8-A853-308CD7FA05F7}",
+        "BasicDataOperationsCSom;{13823EB3-B415-4C21-9884-E67182AA12CE}",
+        "BasicDataOperationsREST;{DBE23FF5-5B56-47D5-A182-5EBA809885AC}",
+        "ITControlling;{AD19B829-D8BA-4F6B-94C8-C283BE7288EE}",
+        "TicTacToApp;{FB7F01E6-BD24-460F-8549-E12E048A3860}",
+        "BingApp;http://www.bing.de",
+        "GoogleApp;http://www.google.de",
+		"AppCenter;http://www.bing.de",
+	];
+
+    var buf = [];
+    for (var i = 0; i < myapps.length; i++) {
+        var ap = myapps[i].split(';');
+        buf.push("<div class='OneDriveAppDiv' onclick='startApp(\"" + ap[1] + "\")'><img src='img/odrive/" + ap[0] + ".png'></div>");
+   }
+    document.getElementById("OneDriveMenuContent").innerHTML = buf.join("");
+}
+
+function startApp(id) {
+    nmdr.core.popup.closeX();
+    var src = id.startsWith('http') ? id : "http://mysp1/sites/appcatalog/_layouts/15/appredirect.aspx?instance_id=" + id;
+    document.getElementById("AppsIFrame").src = src;}
+
+function setIFrameSize () {
+    var d = nmdr.core.utils.calculateWindowSize(), ifr = document.getElementById("AppsIFrame");
+    ifr.style.width = d.width + 'px';
+    ifr.style.height = d.height - 70 + 'px';
+}
+
+</script> 
+
+</head>
+<body>
+	
+	<div class='OneDriveNavi'>
+		<div class='OneDriveNaviImg' onclick='javascript:openMenu(this)'>
+			<img alt='' src='img/odrivemenu.png'>
+		</div>
+		<div class='OneDriveNaviTitle'>
+			<span>AppCenter</span>
+		</div>
+		<div class='OneDriveNaviItem'>
+			<span>Upload App</span>
+		</div>	
+		<div class='OneDriveNaviSettings'>
+			<img alt='' src='img/settings.png'>
+		</div>	
+	</div>
+
+	<div class='oneDriveBubble' id='OneDriveMenu'>
+		<div class='arrow top right'></div>	
+		<div id='OneDriveMenuContent'>
+			hello world
+		</div>	
+	</div>	
+	
+    <iframe id="AppsIFrame"></iframe>
+</body>
+</html>

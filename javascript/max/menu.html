@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits Menu</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+<script type="text/javascript" src="scripts/moduls/nmdrMenu.js"></script>
+
+<script type="text/javascript">
+	
+function makeMenu() {
+
+	var m = nmdr.menu("MM1");
+	
+	m.prepareMenu = function () {
+		var m = 
+		{
+			name: "M1",
+			showClose: false,
+			width: 200,
+			items: [
+				{ name: "open item...", icon: "details.gif", enabled: true, action: 'view' },
+				{ name: "edit item...", icon: "editdetails.gif", enabled: true, action: 'edit' },
+				{ name: "delete item...", icon: "delete.gif", enabled: true, action: 'delete' },
+				{ name: "#separator" },
+				{ name: "show details...", icon: "new.gif", enabled: true, action: 'showdetails' },
+				{ name: "edit details...", icon: "edititem.gif", enabled: true, action: 'editdetails' },
+				{ name: "#separator" },
+				{ name: "refresh page...", icon: "menu/refpage.png", enabled: true, action: 'refresh', 
+					menu:
+					{
+						name: "SM1",
+						showClose: true,
+						items: [
+							{ name: "show exchange..", icon: "menu/globalx.png", enabled: true, action: 'view' },
+							{ name: "edit item...", icon: "editdetails.gif", enabled: true, action: 'edit',
+								menu:								
+								{
+									name: "SM11",
+									showClose: true,
+									items: [
+										{ name: "set home...", icon: "menu/homeprob.png", enabled: true, action: 'view' },
+										{ name: "publishing...", icon: "menu/publishing.png", enabled: true, action: 'edit' },
+										{ name: "#separator" },
+										{ name: "deploying...", icon: "menu/globaly.png", enabled: true, action: 'delete' },
+										{ name: "refresh page...", icon: "menu/workflows.png", enabled: true, action: 'refresh'}
+									]
+								}
+							},
+							{ name: "delete item...", icon: "uncheck.png", enabled: true, action: 'delete' },
+							{ name: "#separator" },
+							{ name: "user properties...", icon: "menu/users.png", enabled: true, action: 'refresh'}
+						]
+					}
+				},
+			]
+		};
+		
+		return m;
+	};
+
+	m.init();
+}
+
+</script> 
+
+</head>
+<body style='padding:30px; margin:0px;'>
+
+<table>
+	<tr>
+		<td style='vertical-align:top;text-align:left;width:300px;height:42px;font-family:Verdana,Arial; font-size:13px; color:red'>
+			Use just a html element like span to start the menu<br><br><img src='img/tutorial/img11.png'><br><br>
+		</td>
+		<td style='text-align:left;vertical-align:top;width:150px;'><img src='img/tutorial/img0.png'></td>
+		<td style='padding: 0px 0px 10px 0px;vertical-align:middle;text-align:left'>
+			<span id='MM1'>Click to open menu...</span>			
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3" style='vertical-align:top;text-align:left;width:280px;height:42px;font-family:Verdana,Arial; font-size:13px; color:red'>
+			Definition of menus and items<br><br><img src='img/tutorial/img12.png'><br><br>
+		</td>
+	</tr>
+
+</table>
+
+<script type="text/javascript">
+	nmdr.loadModule("menu", makeMenu);
+</script>
+
+</body>
+</html>

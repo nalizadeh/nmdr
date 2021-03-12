@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits PixShow</title>
+
+<style type="text/css">
+* {margin:0px; padding:0px; }
+</style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+
+function makePixshow() {
+	var data = {
+		width: 680, 
+		height: 480, 
+		thumbWidth: 100, 
+		thumbHeight: 58, 
+		originWidth: 1366,
+		originHeight: 768,
+		imagePath: 'img/pixshow/',
+		effect: 1,
+		albums:  
+		[
+			{
+				title: "Bing pictures - August 2015",
+				description: "Album august 2015",
+				//url: "file://D:/works/nalizadeh/img/bing/2015/",
+				url: "http://nalizadeh.com/img/bing/2015/",
+				path: "august/",
+				image: "august.jpg",
+				picname: null,
+				order: false,
+				picsCount: -1,
+				selected: true,
+				pics: [
+					{name:'AlNeversinkPit_ZH-CN10271991250_1366x768.jpg',desc:'Al Neversink Pit',video:false},
+					{name:'AmericanBison_EN-AU7400352919_1366x768.jpg',desc:'American Bison',video:false},
+					{name:'AmericanWhitePelican_EN-US14322932555_1366x768.jpg',desc:'American White Pelican',video:false},
+					{name:'AntelopeCanyonVideo_EN-AU11344057043_1366x768.jpg',desc:'Antelope Canyon Video',video:false},
+					{name:'Anthopleura_DE-DE10893698028_1366x768.jpg',desc:'Anthopleura',video:false},
+					{name:'Baskets_EN-CA11724224784_1366x768.jpg',desc:'Baskets',video:false},
+					{name:'BirdsChinaGuilin_ZH-CN10157832447_1366x768.jpg',desc:'Birds China Guilin',video:false},
+					{name:'BlueWildebeests_JA-JP10669479177_1366x768.jpg',desc:'Blue Wildebeests',video:false},
+					{name:'BristleHaircaps_EN-AU6340346280_1366x768.jpg',desc:'Bristle Haircaps',video:false},
+					{name:'BrownRiver_EN-CA10670213717_1366x768.jpg',desc:'Brown River',video:false},
+					{name:'BushPlane_EN-CA7667666676_1366x768.jpg',desc:'Bush Plane',video:false},
+					{name:'Campobello_EN-CA10364819479_1366x768.jpg',desc:'Campobello',video:false},
+					{name:'CenoteSamula_EN-AU13385850326_1366x768.jpg',desc:'Cenote Samula',video:false},
+					{name:'ChinaAutumnLandscape_ZH-CN10360093291_1366x768.jpg',desc:'China Autumn Landscape',video:false},
+					{name:'ChinaAutumnMuseum_ZH-CN14314118259_1366x768.jpg',desc:'China Autumn Museum',video:false},
+					{name:'GatesheadMillenniumBridge_EN-AU10038150975_1366x768.jpg',desc:'Gateshead Millennium Bridge',video:false},
+					{name:'GeckoRain_EN-CA15375491977_1366x768.jpg',desc:'Gecko Rain',video:false},
+					{name:'geyser_sciencephotoRF_k004285_Strokkur_geyser_768_EN-CA.jpg',desc:'geyser sciencephotoRF',video:true},
+					{name:'GoldenWattleSprig_EN-AU10397274203_1366x768.jpg',desc:'Golden Wattle Sprig',video:false},
+					{name:'GreetingtotheSun_DE-DE13553844047_1366x768.jpg',desc:'Greetingtothe Sun',video:false},
+					{name:'HangingRockVic_EN-AU12518427798_1366x768.jpg',desc:'Hanging Rock Vic',video:false},
+					{name:'HeartNebula_EN-AU8238451504_1366x768.jpg',desc:'Heart Nebula',video:false},
+					{name:'HiroshimaLantern_JA-JP8742079663_1366x768.jpg',desc:'Hiroshima Lantern',video:false},
+					{name:'HongKongLightning_ZH-CN9224052399_1366x768.jpg',desc:'Hong Kong Lightning',video:false},
+					{name:'IndiaMonsoon_ROW11613207622_1366x768.jpg',desc:'India Monsoon',video:false},
+					{name:'InterCelticProcession_FR-FR9855029071_1366x768.jpg',desc:'Inter Celtic Procession',video:false},
+					{name:'KarlsruheGarten_DE-DE14113464160_1366x768.jpg',desc:'Karlsruhe Garten',video:false},
+					{name:'LitchfieldMounds_EN-AU8438862312_1366x768.jpg',desc:'Litchfield Mounds',video:false},
+					{name:'LongPineKey_FR-FR11806566262_1366x768.jpg',desc:'Long Pine Key',video:false},
+					{name:'LouisXIVStatue_DE-DE6643811045_1366x768.jpg',desc:'Louis XIV Statue',video:false},
+					{name:'MacquarieLighthouse_EN-AU15093746571_1366x768.jpg',desc:'Macquarie Lighthouse',video:false},
+					{name:'MetropolParasol_EN-AU10103016851_1366x768.jpg',desc:'Metropol Parasol',video:false},
+					{name:'MilkyWaySpain_FR-FR9024148643_1366x768.jpg',desc:'Milky Way Spain',video:false},
+					{name:'Mononoke_EN-AU13409269804_1366x768.jpg',desc:'Mononoke',video:false},
+					{name:'Mulbekh_EN-AU12832591800_1366x768.jpg',desc:'Mulbekh',video:false},
+					{name:'MyanmarUBein_shutterstockRF_6791437_768_EN-AU.jpg',desc:'Myanmar UBein',video:true},
+					{name:'NehruTrophy_EN-CA9896064028_1366x768.jpg',desc:'Nehru Trophy',video:false},
+					{name:'NileCrocodile_EN-CA9193520836_1366x768.jpg',desc:'Nile Crocodile',video:false},
+					{name:'NorthwoodsLilypads_EN-AU8241733488_1366x768.jpg',desc:'Northwoods Lilypads',video:false},
+					{name:'NorwayShipwreck_EN-AU10982092708_1366x768.jpg',desc:'Norway Shipwreck',video:false},
+					{name:'PalaisGarnier_FR-FR12118050247_1366x768.jpg',desc:'Palais Garnier',video:false},
+					{name:'PEISunset_EN-CA12521077362_1366x768.jpg',desc:'PEI Sunset',video:false},
+					{name:'PolderLandscape_EN-AU10497906766_1366x768.jpg',desc:'Polder Landscape',video:false},
+					{name:'ShastaStars_DE-DE9642582022_1366x768.jpg',desc:'Shasta Stars',video:false},
+					{name:'SiestaSudo_EN-AU9865257363_1366x768.jpg',desc:'Siesta Sudo',video:false},
+					{name:'SingaporeFifty_EN-CA10288353617_1366x768.jpg',desc:'Singapore Fifty',video:false},
+					{name:'SpectacledBear_EN-AU11718932626_1366x768.jpg',desc:'Spectacled Bear',video:false},
+					{name:'SpiralGardenParis_FR-FR10133063434_1366x768.jpg',desc:'Spiral Garden Paris',video:false},
+					{name:'StrokkurGeyserVideo_EN-CA13059478273_1366x768.jpg',desc:'Strokkur Geyser Video',video:false},
+					{name:'TreeTopWalk_DE-DE11394514109_1366x768.jpg',desc:'Tree Top Walk',video:false},
+					{name:'UBeinBridge_EN-AU5687781877_1366x768.jpg',desc:'U Bein Bridge',video:false},
+					{name:'UK_Gateshead_ShutterstockRF_6899947_768_EN-AU.jpg',desc:'UK Gateshead ShutterstockRF',video:true},
+					{name:'VolcanoRoadCR_EN-AU10753743582_1366x768.jpg',desc:'Volcano Road CR',video:false},
+					{name:'WarwickLongBay_EN-CA11164024039_1366x768.jpg',desc:'Warwick Long Bay',video:false},
+					{name:'WegelnburgRuine_DE-DE12219979370_1366x768.jpg',desc:'Wegelnburg Ruine',video:false},
+					{name:'Wonderland_EN-AU8855795563_1366x768.jpg',desc:'Wonderland',video:false},
+					{name:'WoolamaiStarTrails_EN-AU10318966748_1366x768.jpg',desc:'Woolamai Star Trails',video:false},
+					{name:'WorldElephantDay_EN-AU12280718193_1366x768.jpg',desc:'World Elephant Day',video:false},
+					{name:'YellowstoneVisitors_EN-CA10419224583_1366x768.jpg',desc:'Yellowstone Visitors',video:false},
+				]
+			},
+		]
+	};
+	
+    nmdr.pixshow('MY_SLIDER').init(data).startAutoplay();
+}
+
+</script>
+
+</head>
+<body style='background:#000;padding-top:10px;'>
+<center>
+<br>
+<div id="MY_SLIDER">
+<script type="text/javascript">
+	nmdr.loadModule("pixshow", makePixshow);
+</script>			   
+</div>
+
+</body>    
+</html>

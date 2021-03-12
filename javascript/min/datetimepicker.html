@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits DateTimePicker</title>
+
+<style type="text/css"></style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+</script> 
+
+</head>
+<body>
+<br><br>
+<table border='0' cellpadding='0' cellspacing='0'>
+
+	<tr>
+		<td style='vertical-align:top;text-align:left;width:300px;height:42px;font-family:Verdana,Arial; font-size:13px; color:red'>
+			Compact date picker with default colour scheme<br><br><img src='img/tutorial/img8.png'><br><br>
+		</td>
+		<td style='text-align:left;vertical-align:top;width:150px;'><img src='img/tutorial/img0.png'></td>
+		<td style='padding: 0px 0px 10px 0px;vertical-align:top;text-align:left'>	
+			<div id='DatePicker'>
+			</div>			
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align:top;text-align:left;width:280px;height:42px;font-family:Verdana,Arial; font-size:13px; color:red'>
+			Extended date & time picker<br>You can also see the public interfaces for customizing the colour scheme<br><br><img src='img/tutorial/img9.png'><br><br>
+		</td>
+		<td style='text-align:left;vertical-align:top;width:150px;'><img src='img/tutorial/img0.png'></td>
+		<td style='padding: 0px 0px 10px 0px;vertical-align:top;text-align:left;'>
+			<div id='DateTimePicker'>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<script type="text/javascript">
+	nmdr.loadModule("datetime", function() {
+			
+		nmdr.datetime('DatePicker').init();
+		
+		nmdr.datetime('DateTimePicker').init(
+		{
+			date: new Date(),
+			lang: "de",
+			showTime: true,
+			showStatusbar: true,
+			imagePath: "img/",
+			inputFocusBackground: '#eaf2cb',
+			backgroundColor: '#c3d18a',
+			headerColor: '#eaf2cb',
+			headerBackground: '#899166',
+			cellColor: '#777',
+			cellBackground: '#eaf2cb',
+			hoverColor: 'white',
+			hoverBackground: 'orange'
+		});
+	});
+</script>
+
+</body>
+
+</html>

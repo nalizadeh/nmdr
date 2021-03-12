@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ripple example</title>
+	<style>
+	</style>
+	
+</head>
+<body>
+<!-- <canvas id="canvas" width=600 height=400></canvas> -->
+	
+<div id="anim"><img src="img/canvas/kingcard.png" onload="doAnim('anim', this);" /></div>
+
+<script type="text/javascript">
+
+window.requestAnimFrame = (function (callback) {
+    return window.requestAnimationFrame || 
+	window.webkitRequestAnimationFrame || 
+	window.mozRequestAnimationFrame || 
+	window.oRequestAnimationFrame || 
+	window.msRequestAnimationFrame || 
+	function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
+function doAnim(id, img) {
+	new nmdrCanvas(id).init(800, 600, img).waterEffect();
+	//new nmdrCanvas(id).init(800, 600, img).changeOpacity(0,1);
+	//new nmdrCanvas(id).init(800, 600, img).startCardflip("img/canvas/kingcard.png", "img/canvas/kingcardback.png");
+}
+
+function nmdrCanvas(id, inited) {
+    var $ = (typeof id == "string") ? document.getElementById(id) : id;
+    if (inited) return $;
+	
+	$.init = function (width, height, img) {
+		
+        this.width = width;
+        this.height = height;
+		this.img = img;
+		
+		this.canvas = document.createElement('canvas');
+		this.canvas.width = this.width;
+		this.canvas.height = this.height;
+		this.canvas.style.left = img.offsetLeft + 'px';
+		this.canvas.style.top = img.offsetTop + 'px';
+
+		this.ctx = this.canvas.getContext('2d');
+		this.drawimgcaled(img);
+
+		this.innerHTML = "";
+		this.appendChild(this.canvas);
+
+		return this;
+	};
+	
+	//======================== Watereffect
+	
+	$.drawimgcaled = function(img) {
+	   var canvas = this.ctx.canvas;
+	   var hRatio = this.canvas.width / img.width;
+	   var vRatio = this.canvas.height / img.height;
+	   var ratio = Math.min ( hRatio, vRatio );
+	   var centerShift_x = (this.canvas.width - img.width*ratio) >> 1;
+	   var centerShift_y = (this.canvas.height - img.height*ratio) >> 1;  
+	   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	   this.ctx.drawImage(img, 0, 0, img.width, img.height, centerShift_x, centerShift_y, img.width*ratio, img.height*ratio);  
+	};
+	
+    $.run = function() {
+		this.newframe();
+        this.ctx.putImageData(this.ripple, 0, 0);
+    };
+	
+    $.disturb = function(dx, dy) {
+		
+        dx <<= 0;
+        dy <<= 0;
+        
+        for (var j = dy - this.riprad; j < dy + this.riprad; j++) {
+            for (var k = dx - this.riprad; k < dx + this.riprad; k++) {
+                this.ripplemap[this.oldind + (j * this.width) + k] += 128;
+            }
+        }
+    };
+	
+    $.newframe = function() {
+        var a, b, data, cur_pixel, new_pixel, old_data, t = this.oldind; 
+		this.oldind = this.newind; 
+		this.newind = t;
+		
+        var i = 0,
+			_width = this.width,
+            _height = this.height,
+            _ripplemap = this.ripplemap,
+            _last_map = this.last_map,
+            _rd = this.ripple.data,
+            _td = this.texture.data,
+            _half_width = this.half_width,
+            _half_height = this.half_height;
+        
+        for (var y = 0; y < _height; y++) {
+            for (var x = 0; x < _width; x++) {
+                var _newind = this.newind + i, _mapind = this.oldind + i;
+                data = (
+                    _ripplemap[_mapind - _width] + 
+                    _ripplemap[_mapind + _width] + 
+                    _ripplemap[_mapind - 1] + 
+                    _ripplemap[_mapind + 1]) >> 1;
+                    
+                data -= _ripplemap[_newind];
+                data -= data >> 5;
+                
+                _ripplemap[_newind] = data;
+
+                //where data=0 then still, where data>0 then wave
+                data = 1024 - data;
+                
+                this.old_data = _last_map[i];
+                _last_map[i] = data;
+                
+                if (old_data != data) {
+                    //offsets
+                    a = (((x - _half_width) * data / 1024) << 0) + _half_width;
+                    b = (((y - _half_height) * data / 1024) << 0) + _half_height;
+    
+                    //bounds check
+                    if (a >= _width) a = _width - 1;
+                    if (a < 0) a = 0;
+                    if (b >= _height) b = _height - 1;
+                    if (b < 0) b = 0;
+    
+                    new_pixel = (a + (b * _width)) * 4;
+                    cur_pixel = i * 4;
+                    
+                    _rd[cur_pixel] = _td[new_pixel];
+                    _rd[cur_pixel + 1] = _td[new_pixel + 1];
+                    _rd[cur_pixel + 2] = _td[new_pixel + 2];
+                }
+                
+                ++i;
+            }
+        }
+    };
+	
+	$.waterEffect = function() {
+        this.half_width = this.width >> 1;
+        this.half_height = this.height >> 1;
+        this.size = this.width * (this.height + 2) * 2;
+        this.oldind = this.width;
+        this.newind = this.width * (this.height + 3);
+        this.riprad = 3;
+        this.ripplemap = [];
+        this.last_map = [];
+        this.line_width = 20;
+        this.step = this.line_width * 2; 
+        this.count = this.height / this.line_width;
+		
+		this.texture = this.ctx.getImageData(0, 0, this.width, this.height);
+		this.ripple = this.ctx.getImageData(0, 0,this.width, this.height);
+		
+		for (var i = 0; i < this.size; i++) {
+			this.last_map[i] = this.ripplemap[i] = 0;
+		}
+		
+		var self = this, rnd = Math.random;
+		
+		/*
+		this.canvas.onmousemove = function(evt) {
+			self.disturb(evt.offsetX || evt.layerX, evt.offsetY || evt.layerY);
+		};
+		*/
+		setInterval(function() { self.run(); }, 30);
+		setInterval(function() {
+			self.disturb(rnd() * self.width, rnd() * self.height);
+		}, 200);
+	};
+	
+	//==================== Opacity
+	
+	$.changeOpacity = function(start, end) {
+		var self = this, animPctComplete = start;
+		var anim = function () {
+
+			self.ctx.globalAlpha = animPctComplete;
+            self.ctx.clearRect(0, 0, self.width, self.height);
+			self.drawimgcaled(self.img);
+			
+			if (start < end) {
+				animPctComplete += .01;
+				if (animPctComplete > end) return;
+			} else {
+				animPctComplete -= .01;
+				if (animPctComplete < end) return;
+			}
+			requestAnimFrame(anim);
+		};
+		anim();
+	};
+	
+	//==================== Cardflip
+
+	$.x=150;
+	$.y=150;
+	$.scaleX=100;
+	$.angle=0;
+	$.scaleDirection=-1;
+	$.scaleDelta=1;
+	$.PI2=Math.PI*2;
+	$.imgCount = 2;
+	
+	$.front = null;	
+	$.back = null;
+	
+	$.startCardflip = function (front, back) {
+		var self = this;
+		var cb = function() {
+			if (--self.imgCount > 0) return; 
+			self.animateCardflip();
+			return;
+		};
+		
+		if (front && back) {
+			this.front = new Image();
+			this.front.onload = cb;
+			this.front.src = front;
+			
+			this.back = new Image();
+			this.back.onload = cb;
+			this.back.src = back;
+		}
+	};
+
+	$.drawCardflip = function (x, y, scaleX, angle) {
+		this.ctx.clearRect(0, 0, this.width, this.height);
+		this.ctx.translate(x, y);
+		this.ctx.rotate(angle);
+		this.ctx.scale(scaleX, 1);
+		if (scaleX >= 0) {
+			this.ctx.drawImage(this.front, -this.front.width/2, -this.front.height/2);
+		} else {
+			this.ctx.drawImage(this.back, -this.back.width/2, -this.back.height/2);
+		}
+		this.ctx.setTransform(1,0,0,1,0,0);
+	};
+
+	$.animateCardflip = function () {
+		var self = this;
+		var anim = function() {
+			self.drawCardflip(self.x, self.y, self.scaleX / 100, self.angle);
+			self.angle += self.PI2 / 720;
+			self.scaleX += self.scaleDirection * self.scaleDelta;
+			if (self.scaleX <- 100 || self.scaleX > 100) {
+				self.scaleDirection *= -1;
+				self.scaleX += self.scaleDirection * self.scaleDelta;
+			}
+			requestAnimationFrame(anim);
+		};
+		
+		anim();
+	};
+	
+	return $;
+}
+
+</script>
+
+
+</body>
+</html>

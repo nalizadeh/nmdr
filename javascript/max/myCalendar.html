@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits PHP Calendar</title>
+
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+<style>
+body, html { height: 100%; }
+* { padding 0; margin:1; }
+</style>
+
+</head>
+<body>
+
+<div id="Calendar">
+	<script type="text/javascript">
+	nmdr.loadModules(["datetime", "calendar", "phpCalendar", "dClock"], function() {
+		nmdr.phpCalendar("Calendar").init(
+			{
+				date: new Date(), 
+				lang: "en", 
+				fontSize: 12, 
+				enabled: true, 
+				imagePath: "img/", 
+				showClock: true, 
+				showWN: true,
+				userLines: 10,
+			}
+		);
+	});
+	</script>
+</div>
+
+</body>
+</html>

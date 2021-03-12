@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html><head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits Tile</title>
+
+<style type="text/css"></style>
+<script type="text/javascript" src="scripts/nmdr.js"></script>
+
+</head>
+<body>
+    
+<div id="MYTILE" style="position:absolute; left:200px; top:200px;">
+<script type="text/javascript">
+nmdr.loadModule("tile", function() {
+    var tile = {
+		title: "Tile9", 
+		desc: "The word 'TILE' is believed to be derived from the French word 'TUILE', which in turn is believed to have been derived from the Latin word 'TEGULA' which means a roof covering piece composed of fired clay.",
+		image: "img/tiles/tile9.png", 
+		width: 400,
+		height: 200,
+		titleHeight: 50,
+		bgcolor: "purple", 
+		target: "Script", 
+		url: "alert('Hello World from XTilesView!');", 
+	};
+		
+    nmdr.tile('MYTILE').init(tile);
+});
+</script>			   
+</div>
+
+</body>
+</html>

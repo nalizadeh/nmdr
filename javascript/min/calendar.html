@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>nmdrToolkits Calendar</title>
+
+<style type="text/css">
+body, html { height: 100%; }
+* { padding 0; margin:1; }
+</style>
+
+<script type="text/javascript" src="scripts/nmdr-min.js"></script>
+
+<script type="text/javascript">
+
+function makeCalendar1(id) {
+ 
+    var d = new Date();
+    var d1 = d.addMonth(d, 2);
+    var d2 = d.addMonth(null, 2);
+    var d3 = d.addMonth(2);
+    
+	var ca = nmdr.calendar(id);
+
+    ca.renderCell = function (date) {
+        var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+        if (d==18 && m==11 && y==2017) {
+            return '<div style="width:100%;height:100%;background:orange;color:#000;"><span style="font-weight:normal">Termin 8:00 - 9:00 </span></div>';
+        }
+        if (d > 19 && d < 23 && m==11 && y==2017) {
+            return '<div style="width:100%;height:100%;background:#A9FF87;color:#000;"><span style="font-weight:normal">Vacation</span></div>';
+        }
+        return '';
+    };
+
+	ca.handleUserEvent = function (date) {
+		nmdrDialog.alert(null, date.toString());
+	};
+	
+	ca.init(
+	{
+		view: ca.defaultView, 
+		date: new Date(), 
+		lang: "de", 
+		fontSize: 12, 
+		enabled: true, 
+		imagePath: "img/", 
+		showClock: true, 
+		showWN: true,
+		userLines: 10,
+	});
+}
+
+function makeCalendar2(id) {
+ 
+	var ca = nmdr.calendar(id);
+
+	ca.init(
+	{
+		view: ca.defaultView, 
+		date: new Date(), 
+		lang: "en", 
+		fontSize: 12, 
+		enabled: true, 
+		imagePath: "img/", 
+		showClock: true, 
+		showWN: true,
+		userLines: 10,
+	});
+}
+
+</script> 
+</head>
+<body>
+
+<div style="width:680px; height:500px;">
+	<div id="Calendar1"></div>
+</div>
+<br>
+<br>
+<div id="Calendar2"></div>
+
+<script type="text/javascript">
+
+nmdr.loadModules(["calendar", "dClock"], function() {
+	makeCalendar1('Calendar1');
+	makeCalendar2('Calendar2');
+});
+
+</script>
+
+</body>
+
+</html>
