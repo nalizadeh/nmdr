@@ -596,7 +596,7 @@ function nmdrTable(id) {
 
 					if (this.props.scrollable && cw && col == data.length - 1) cw -= 18;  // <=== attention important
 					
-					buf.push("<td class='nmdrTB_body_td' id='" + this.id + "_nmdrTB_body_td_" + row + "x" + col + "' clipboard='" + data[col] + "'");
+					buf.push("<td class='nmdrTB_body_td' id='" + this.id + "_nmdrTB_body_td_" + row + "x" + col + "' param='" + data[col] + "'");
 					buf.push(cw ? " style='width:" + cw + "px; min-width:" + cw + "px; max-width:" + cw + "px;'>" : ">");
 					buf.push(ac ? ac : bc ? bc : data[col] + "</td>");
                 }
@@ -698,13 +698,11 @@ function nmdrTable(id) {
     };
 
     $.copyToClipboard = function (row) {
-		var 
-			body = document.getElementsByTagName('body')[0], 
-			tempInput = document.createElement('INPUT')
-			copyText = document.getElementById(this.id + "_nmdrTB_rowMenu_tx");
+		var body = document.getElementsByTagName('body')[0];
+		var tempInput = document.createElement('INPUT');
 			
         body.appendChild(tempInput);
-        tempInput.setAttribute('value', copyText.innerHTML); 
+        tempInput.setAttribute('value', this.menuCommands[0].param); 
         tempInput.select();
 		tempInput.setSelectionRange(0, 99999);
         document.execCommand('copy');
@@ -1178,6 +1176,15 @@ function nmdrTable(id) {
 
     $.openRowMenu = function (ev, row, cell) {
 
+		for (var mc in this.menuCommands) {
+			this.menuCommands[mc].targetRow = row;
+			this.menuCommands[mc].param = cell ? cell.getAttribute("param") : "";
+			if (mc == 0) this.menuCommands[mc].enabled = cell != null;
+		}
+		this.makeRowMenu(false, cell);
+
+		//===
+		
         var self = this,
             s = cell ? cell : document.getElementById(this.id + "_nmdrTB_body_tr" + row).getElementsByClassName("nmdrTB_body_cm")[0],
 			m = this.getElementsByClassName("nmdrTB_rowMenu")[0],
@@ -1185,12 +1192,6 @@ function nmdrTable(id) {
 			o = s.absPosition;
 
         if (o.left + m.offsetWidth > t.left + this.offsetWidth) o.left = this.offsetWidth - m.offsetWidth;
-
-		for (var mc in this.menuCommands) {
-			this.menuCommands[mc].targetRow = row;
-			if (mc == 0) this.menuCommands[mc].enabled = cell != null;
-		}
-		this.makeRowMenu(false, cell);
 		
         m.style.display = "inline-block";
         m.style.position = "absolute";
@@ -1412,12 +1413,7 @@ function nmdrTable(id) {
 			buf.push(cmd.enabled ? "onclick=\"nmdr.core.$('" + this.id + "').executeMenuCommand(" + i + ");\" " : " ");
 			buf.push("onmouseover=\"nmdr.core.$('" + this.id + "').onRowMenuMouseOver(event);\">");
 			buf.push("<td style='opacity:" + (cmd.enabled  ? "1" : "0.2") + ";width:24px;'><img src='" + this.props.imagePath + cmd.icon + "'></td>");
-			buf.push("<td style='opacity:" + (cmd.enabled  ? "1" : "0.2") + ";'><span>" + cmd.name + "</span>");
-			
-			if (cmd.name == "copy content") {
-				buf.push("<span id='" + this.id + "_nmdrTB_rowMenu_tx' style='visibility:hidden;'>" + (cell ? cell.getAttribute("clipboard") : "") + "</span>");
-			}
-			buf.push("</td></tr>");
+			buf.push("<td style='opacity:" + (cmd.enabled  ? "1" : "0.2") + ";'><span>" + cmd.name + "</span></td></tr>");
 		}
 		buf.push("</table>");
         document.getElementById(this.id + "_nmdrTB_rowMenu").innerHTML = buf.join("");
@@ -1510,11 +1506,11 @@ function nmdrTable(id) {
     $.prepareMenuCommands = function () {
 		var self = this;
 		return [
-            { name: "copy content", icon: "copyitem.gif", enabled: false, targetRow: 0, action: function(row) { self.handleCommand(null, "copyContent", row); } },
-            { name: "open item", icon: "details.gif", enabled: true, targetRow: 0, action: function(row) { self.handleCommand(null, "openRow", row); } },
-            { name: "edit item", icon: "editdetails.gif", enabled: true, targetRow: 0, action: function(row) { self.handleCommand(null, "editRow", row); } },
-            { name: "delete item", icon: "delete.gif", enabled: true, targetRow: 0, action: function(row) { self.handleCommand(null, "deleteRow", row); } },
-            { name: "rename item", icon: "edititem.gif", enabled: true, targetRow: 0, action: function(row) { self.handleCommand(null, "renameRow", row); } },
+            { name: "copy content", icon: "copyitem.gif", enabled: false, targetRow: 0, param: "", action: function(row) { self.handleCommand(null, "copyContent", row); } },
+            { name: "open item", icon: "details.gif", enabled: true, targetRow: 0, param: "", action: function(row) { self.handleCommand(null, "openRow", row); } },
+            { name: "edit item", icon: "editdetails.gif", enabled: true, targetRow: 0, param: "", action: function(row) { self.handleCommand(null, "editRow", row); } },
+            { name: "delete item", icon: "delete.gif", enabled: true, targetRow: 0, param: "" , action: function(row) { self.handleCommand(null, "deleteRow", row); } },
+            { name: "rename item", icon: "edititem.gif", enabled: true, targetRow: 0, param: "", action: function(row) { self.handleCommand(null, "renameRow", row); } },
         ];
 	};
 	
