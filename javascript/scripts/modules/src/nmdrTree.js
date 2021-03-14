@@ -65,13 +65,15 @@ function nmdrTree(id) {
     $.widths = [];
     $.treeviewData = [];
     $.selections = [];
+	$.menuCommands = [];
     $.clickedRow = -1;
     $.firstRow = 0;
     $.lastRow = 0;
+    $.rowMenuOpen = false;
 
     //=== Methods 
 
-    $.init = function (props) {
+    $.build = function (props) {
 		
  		props = props || {};
 		
@@ -92,13 +94,13 @@ function nmdrTree(id) {
 
     //===
 
-    $.makeViewer = function () {
+    $.makeView = function () {
 
         var pfx = "#" + this.id;
         var script = "<script type='text/javascript'></script>";
 
         var style = "<style type='text/css'>" +
- 			pfx + " { position:relative !important; }" +
+ 			pfx + " { position:relative !important; width: 100%; height: 100%; box-sizing: border-box;}" +
             pfx + " .nmdrTR_content {" +
             "  line-height: " + this.props.lineHeight + ";" +
             "  color:" + this.props.color + ";" +
@@ -109,11 +111,11 @@ function nmdrTree(id) {
             "  border-width:" + (this.props.showBorder ? this.props.borderWidth : "0px") + ";" +
             "  border-color:" + this.props.borderColor + ";" +
             "  border-style: solid;" +
-            "  cursor: default;" +
-            "  -webkit-user-select: none;" +
-            "  -moz-user-select: none;" +
-            "  -ms-user-select: none;" +
-            "   user-select: none;" + (this.props.showShadow ? "box-shadow:3px 3px 3px #ccc;" : "") +
+            "  cursor: default;" + (this.props.showShadow ? "box-shadow:3px 3px 3px #ccc;" : "") +
+            "  user-select: none;" +
+			" -webkit-user-select: none;" +
+            " -moz-user-select: none;" +
+            " -ms-user-select: none;" + 
             "}" +
             pfx + " .nmdrTR_table td {" +
             "   padding-top: 2px;" +
@@ -144,17 +146,35 @@ function nmdrTree(id) {
             pfx + " .nmdrTR_tr:hover td a.nmdrTR_rowcontrol {display: inline !important; opacity: 0.3 !important;}" +
             pfx + " .nmdrTR_tr_sel:hover td a.nmdrTR_rowcontrol {display: inline !important; opacity: 1 !important;}" +
 			pfx + " .nmdrTR_td_folarw:hover, a.nmdrTR_rowcontrol:hover {cursor:pointer;}" +
+
+            pfx + " .nmdrTR_rowMenu {" +
+			" display: none;" +
+			" background-color: white;" +
+			" border: 1px solid #bbb;" +
+			" padding: 5px;" +
+			" width: 200px;" +
+            " line-height: 22px;" +
+            " font-family: arial,verdana,sans-serif;" +
+            " font-weight: normal;" +
+            " font-size:12px;" +
+            " z-index: 999;" +
+            " box-shadow:5px 5px 5px #ddd;" +
+			" transition:all 0.5s ease-in-out;" +
+            "}" +
+            pfx + " .nmdrTR_rowMenu img { vertical-align: middle; }" +
+            pfx + " .nmdrTR_rowMenu_tr { height:28px; }" +
+            pfx + " .nmdrTR_rowMenu_tr:hover {" +
+            " background: " + this.props.rowHOverColor + " !important;" +
+            " cursor: pointer;" +
+            "}" +
             "</style>";
 
         var buf = [];
         buf.push(style);
         buf.push(script);
-        buf.push("<div id='" + this.id + "nmdrTR_root' width:100%;height:100%;overflow:hidden;clear:both;'>");
-        buf.push("<div id='" + this.id + "nmdrTR_content' class='nmdrTR_content' style='overflow:hidden;'>");
-        buf.push(this.makeTable());
-        buf.push("</div>");
-        buf.push("</div>");
-
+        buf.push(this.makeRowMenu(true));
+        buf.push("<div class='nmdrTR_content' id='" + this.id + "_nmdrTR_content' style='overflow:hidden;'>" + this.makeTable() + "</div>");
+		
         this.innerHTML = buf.join("");
         this.initEvents();
     };
@@ -197,8 +217,8 @@ function nmdrTree(id) {
                 bc = se ? pr.rowSelectionColor : al ? pr.rowAlternateColor : pr.backColor,
                 cc = se ? pr.checkSelectionColor : al ? pr.rowAlternateColor : pr.backColor;
 
-            buf.push("<tr class='nmdrTR_tr" + (cl ? "_sel" : "") + "' id='nmdrTR_tr#" + row + "' " +
-					"onClick=\"nmdr.core.$('" + self.id + "').selectRow(event, " + row + ");\" style='background:" + bc + " '>");
+            buf.push("<tr class='nmdrTR_tr" + (cl ? "_sel" : "") + "' onClick=\"nmdr.core.$('" + 
+						self.id + "').selectRow(event, " + row + ");\" style='background:" + bc + " '>");
 
             buf.push("<td style='width:20px; text-align:center; background:" + cc + "'>");
             buf.push("<span style='display:" + (se ? "inline" : "none") + "'>");
@@ -206,17 +226,18 @@ function nmdrTree(id) {
 
             var dat = data.data;
 			if (data.sub) {
-                buf.push("<td class='nmdrTR_tr_td' colspan=" + (self.columns.length) + " style='text-align:left; background:" + bc + "'>"  + dat[0] + "</td></tr>");
+                buf.push("<td class='nmdrTR_td' colspan=" + (self.columns.length) + 
+					" style='text-align:left; background:" + bc + "'>"  + dat[0] + "</td></tr>");
 			}
 			else {
 				for (var l = 0; l < dat.length; l++) {
 					if (l == 0) {
 						buf.push("<td class='nmdrTR_td' style='text-align:right;'>");
-						buf.push("<table border='0' cellpadding='0' cellspacing='0'><tr>");
+						buf.push("<table border='0' cellpadding='0' cellspacing='0' width='100%'><tr>");
 
-						for (var i = 0; i < data.dep; i++)
+						for (var i = 0; i < data.dep; i++) {
 							buf.push("<td style='width:14px;'></td>");
-
+						}
 						buf.push("<td style='width:14px;vertical-align:middle'" + 
 							(data.fol ? " class='nmdrTR_td_folarw' onClick=\"nmdr.core.$('" +	self.id + "').expandNode('" + data.id + "');\">"+
 							"<img src='" + pr.imagePath + (data.exp ? "spArrowd" : "spArrowl") + ".gif'>" : ">") + "</td>");
@@ -224,18 +245,18 @@ function nmdrTree(id) {
 						buf.push("<td style='width:14px;vertical-align:top'><img src='" + pr.imagePath + 
 							(data.fol ? "spFolder" : "spFile") + ".gif'></td>");
 
-						buf.push("<td>" + dat[l] + "</td></tr></table></td>");
+						buf.push("<td id='" + self.id + "_nmdrTR_tdx_" + row + "x" + l + "' param='" + dat[l] + "' style='text-align:left;'>" + dat[l] + "</td></tr></table></td>");
 					}
 					else {
 						var ac = pr.showRowCommands && l == dat.length - 1 ?
 							"<a class='nmdrTR_rowcontrol' id='" + self.id + "_nmdrTR_rowcontrol_" + row + "' style='display:none;float:right;'>" +
-							"<img src='" + pr.imagePath + "spOpen.gif' onclick=\"nmdr.core.$('" + self.id + "').action(event,'open'," + row + ");\">&nbsp;" +
-							"<img src='" + pr.imagePath + "spEdit.gif' onclick=\"nmdr.core.$('" + self.id + "').action(event,'edit'," + row + ");\">&nbsp;" +
-							"<img src='" + pr.imagePath + "spDelete.gif' onclick=\"nmdr.core.$('" + self.id + "').action(event,'delete'," + row + ");\">&nbsp;" +
+							"<img src='" + pr.imagePath + "spOpen.gif' onclick=\"nmdr.core.$('" + self.id + "').action('open'," + row + ");\">&nbsp;" +
+							"<img src='" + pr.imagePath + "spEdit.gif' onclick=\"nmdr.core.$('" + self.id + "').action('edit'," + row + ");\">&nbsp;" +
+							"<img src='" + pr.imagePath + "spDelete.gif' onclick=\"nmdr.core.$('" + self.id + "').action('delete'," + row + ");\">&nbsp;" +
 							"</a>" : "";
 
-						var x = l == dat.length - 1 ? 'style=\"width:150px;\"' : "";
-						buf.push("<td class='nmdrTR_td " + x + "'>" + dat[l] + ac + "</td>");
+						var x = l == dat.length - 1 ? ' style=\"width:150px;\"' : "";
+						buf.push("<td class='nmdrTR_td'" + x + " id='" + self.id + "_nmdrTR_tdx_" + row + "x" + l + "' param='" + dat[l] + "'>" + dat[l] + ac + "</td>");
 					}
 				}
 				buf.push("</tr>");
@@ -271,7 +292,7 @@ function nmdrTree(id) {
     };
 
     $.updateTable = function () {
-        document.getElementById(this.id + "nmdrTR_content").innerHTML = this.makeTable();
+        document.getElementById(this.id + "_nmdrTR_content").innerHTML = this.makeTable();
     };
 
     $.expandNode = function (id, exp) {
@@ -301,7 +322,7 @@ function nmdrTree(id) {
         for (var i = 0; i < this.treeviewData.length; i++) {
             if (expand(id, this.treeviewData[i])) {
                 this.clearSelection();
-                document.getElementById(this.id + "nmdrTR_content").innerHTML = this.makeTable();
+                document.getElementById(this.id + "_nmdrTR_content").innerHTML = this.makeTable();
                 break;
             }
         }
@@ -428,9 +449,9 @@ function nmdrTree(id) {
         this.handlePostBack(ids);
     };
 	
-    $.action = function (ev, code, row) {
-		this.selectRow(ev, row);
+    $.action = function (code, row) {
 		switch(code) {
+			case "copy" : this.copyItem(row); break;
 			case "open" : this.openItem(row); break;
 			case "edit" : this.editItem(row); break;
 			case "delete" : this.deleteItem(row); break;
@@ -477,12 +498,15 @@ function nmdrTree(id) {
             }
         }
 
-        this.makeViewer();
+        this.makeView();
     };
 
     $.initEvents = function () {
         var self = this;
-        document.addEventListener("keydown", function(evt) { 
+		
+        document.getElementById(this.id).oncontextmenu = this.rightClick; 
+		
+		document.addEventListener("keydown", function(evt) { 
             switch(evt.keyCode) {
                 // left arrow @todo
                 case 10037: 
@@ -514,12 +538,125 @@ function nmdrTree(id) {
         });
     };
     
+	$.rightClick = function (ev) { 
+        
+		ev.preventDefault(); 
+		
+		var x = window.pageXOffset ? window.pageXOffset : 0, 
+			y = window.pageYOffset ? window.pageYOffset : 0,
+			c = document.elementFromPoint(ev.pageX - x, ev.pageY - y);
+		
+		if (c && c.id.indexOf("nmdrTR_tdx_") != -1) {
+			var s = c.id.substr(c.id.lastIndexOf("_") + 1).split("x");
+			if (s.length == 2) {
+				this.selectRow(ev, parseInt(s[0]));
+				
+				// Attention, the cell has to be fetched again since the table was rebuild.
+				c = document.elementFromPoint(ev.pageX - x, ev.pageY - y);
+				this.openRowMenu(ev, parseInt(s[0]), c);
+			}
+		}
+	};
+
     $.handlePostBack = function (sels) {
         if (this.props.doPostBack) {
             alert(sels);
         }
     };
 
+	//=========
+	
+    $.makeRowMenu = function (init, cell) {
+		if (init) {
+			this.menuCommands = this.prepareMenuCommands();
+			return "<div class='nmdrTR_rowMenu' id='" + this.id + "_nmdrTR_rowMenu'></div>";
+		}
+		
+        var buf = [];
+		buf.push("<table cellpadding='0' cellspacing='0' border='0' width='100%' height='100%'>");
+		for (var i = 0; i < this.menuCommands.length; i++) {
+			var cmd = this.menuCommands[i];
+			buf.push("<tr class='nmdrTR_rowMenu_tr' ");
+			buf.push(cmd.enabled ? "onclick=\"nmdr.core.$('" + this.id + "').executeMenuCommand(" + i + ");\">" : ">");
+			buf.push("<td style='opacity:" + (cmd.enabled  ? "1" : "0.2") + ";width:24px;'><img src='" + this.props.imagePath + cmd.icon + "'></td>");
+			buf.push("<td style='opacity:" + (cmd.enabled  ? "1" : "0.2") + ";'><span>" + cmd.name + "</span></td></tr>");
+		}
+		buf.push("</table>");
+        document.getElementById(this.id + "_nmdrTR_rowMenu").innerHTML = buf.join("");
+    };
+
+    $.openRowMenu = function (ev, row, cell) {
+		
+		for (var mc in this.menuCommands) {
+			this.menuCommands[mc].targetRow = row;
+			this.menuCommands[mc].param = cell ? cell.getAttribute("param") : "";
+			if (mc == 0) this.menuCommands[mc].enabled = cell != null;
+		}
+		this.makeRowMenu(false, cell);
+
+        var self = this,
+			m = this.getElementsByClassName("nmdrTR_rowMenu")[0],
+			t = this.absPosition, 
+			o = cell.absPosition;
+
+		var br = cell.getBoundingClientRect();
+
+
+        if (o.left + m.offsetWidth > t.left + this.offsetWidth) o.left = this.offsetWidth - m.offsetWidth;
+		
+        m.style.display = "inline-block";
+        m.style.position = "absolute";
+        m.style.left = o.left - t.left + "px";
+        m.style.top = o.top - t.top + (cell ? 20 : 14) + "px";
+
+        nmdr.core.popup.open(m, cell, 
+			function() { nmdr.core.animate.fadeIn(null, m, null, true, function () { self.rowMenuOpen = true; }); }, 
+			function (callback) { self.closeRowMenu(null, self, callback); }
+		);
+		
+		nmdr.core.utils.stopPropagation(ev);
+    };
+
+    $.closeRowMenu = function (cmd, self, callback) {
+        if (self == null) self = this;
+        var m = self.getElementsByClassName("nmdrTR_rowMenu")[0];
+        nmdr.core.animate.fadeOut(null, m, null, true, 
+			function () { 
+				m.style.display = "none";
+				self.rowMenuOpen = false;
+                self.rowMenuActRow = -1;
+				if (cmd) cmd.action(cmd.targetRow);
+				if (callback) callback();
+			}
+		);
+        nmdr.core.popup.close();
+    };
+
+    $.prepareMenuCommands = function () {
+		var self = this;
+		return [
+            { name: "copy content", icon: "copyitem.gif", enabled: false, targetRow: 0, param: "", action: function(row) { self.action("copy", row); } },
+            { name: "open item", icon: "details.gif", enabled: true, targetRow: 0, param: "", action: function(row) { self.action("open", row); } },
+            { name: "edit item", icon: "editdetails.gif", enabled: true, targetRow: 0, param: "", action: function(row) { self.action("edit", row); } },
+            { name: "delete item", icon: "delete.gif", enabled: true, targetRow: 0, param: "" , action: function(row) { self.action("delete", row); } },
+        ];
+	};
+	
+    $.executeMenuCommand = function (num) {
+        this.closeRowMenu(this.menuCommands[num]);
+    };
+	
+    $.copyItem = function (row) { 
+		var body = document.getElementsByTagName('body')[0];
+		var tempInput = document.createElement('INPUT');
+			
+        body.appendChild(tempInput);
+        tempInput.setAttribute('value', this.menuCommands[0].param); 
+        tempInput.select();
+		tempInput.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+        body.removeChild(tempInput);
+	};
+	
     return $;
 }
-

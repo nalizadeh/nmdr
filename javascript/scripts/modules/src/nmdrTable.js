@@ -89,6 +89,7 @@ function nmdrTable(id) {
         multiSelection : false,
 		columnsResizable : false,
         showRowCommands : false,
+		showRowMenu : false,
         showHeader : false,
         showFooter : false,
         showBorder : true,
@@ -180,10 +181,7 @@ function nmdrTable(id) {
 		props = props || {};
 		
         this.props = nmdr.core.utils.mergeProperties(this.props, props);
-		
 		this.localization();
-
-        //this.makeView();
         this.loadData(true, true);
     };
 
@@ -246,6 +244,50 @@ function nmdrTable(id) {
 
     //=== 
 
+    $.loadData = function (calculate, firstCall) {
+
+		var self = this;
+		
+        this.showLoader(true);
+		        
+        window.setTimeout(function () {
+
+            var data = self.prepareData();
+			
+            self.columns = data.columns.slice(0);
+			
+			if (self.props.menuColumn !== -1) {
+				self.props.menuColumn = Math.max(self.props.menuColumn, 1);
+				self.props.menuColumn = Math.min(self.props.menuColumn, self.columns.length);
+			}
+
+            self.menuCommands = self.props.showRowMenu || self.props.menuColumn !== -1 ? self.prepareMenuCommands() : [];
+			self.props.rowLimit = Math.min(self.props.rowLimit, data.rows.length);
+
+            if (self.props.clientHandling) {
+                reference = self;
+                self.originRows = data.rows.slice(0);
+                self.dataRows = self.filterList();
+                self.dataRows.sort(self.sortComparator);
+            }
+            else {
+                self.dataRows = data.rows.slice(0);
+            }
+
+            if (calculate) {
+                self.pageNumber = 1;
+                self.totalNumber = self.dataRows.length;
+                self.firstRow = 1;
+                self.lastRow = self.props.rowLimit > self.totalNumber ? self.totalNumber : self.props.rowLimit;
+                self.pageCount = Math.ceil(self.totalNumber / self.props.rowLimit);
+            }
+
+            if (firstCall) self.makeView(); else self.updateTable();
+
+            self.showLoader(false);
+        }, 10);
+    };
+
     $.makeView = function () {
 
         var buf = [], pr = this.props, 
@@ -273,12 +315,12 @@ function nmdrTable(id) {
             " border-width:" + (pr.showBorder ? pr.borderWidth : "0px") + ";" +
             " border-color:" + pr.borderColor + ";" +
             " border-style: solid;" +
-            " cursor: default;" +
+            " cursor: default;" + (pr.showShadow ? "box-shadow:3px 3px 3px #ccc;" : "") +
+			" user-select: none;" +
             " -webkit-user-select: none;" +
             " -moz-user-select: none;" +
             " -ms-user-select: none;" +
-            " -o-user-select: none;" +
-            "  user-select: none;" + (pr.showShadow ? "box-shadow:3px 3px 3px #ccc;" : "") +
+            " -o-user-select: none;" + 
             "}" +
 
 			pfx + " .nmdrTB_table { border-collapse: collapse; }" +
@@ -709,50 +751,6 @@ function nmdrTable(id) {
         body.removeChild(tempInput);
 	};
 
-    $.loadData = function (calculate, firstCall) {
-
-		var self = this;
-		
-        this.showLoader(true);
-		        
-        window.setTimeout(function () {
-
-            var data = self.prepareData();
-			
-            self.columns = data.columns.slice(0);
-			
-			if (self.props.menuColumn !== -1) {
-				self.props.menuColumn = Math.max(self.props.menuColumn, 1);
-				self.props.menuColumn = Math.min(self.props.menuColumn, self.columns.length);
-			}
-
-            self.menuCommands = self.props.menuColumn !== -1 ? self.prepareMenuCommands() : [];
-			self.props.rowLimit = Math.min(self.props.rowLimit, data.rows.length);
-
-            if (self.props.clientHandling) {
-                reference = self;
-                self.originRows = data.rows.slice(0);
-                self.dataRows = self.filterList();
-                self.dataRows.sort(self.sortComparator);
-            }
-            else {
-                self.dataRows = data.rows.slice(0);
-            }
-
-            if (calculate) {
-                self.pageNumber = 1;
-                self.totalNumber = self.dataRows.length;
-                self.firstRow = 1;
-                self.lastRow = self.props.rowLimit > self.totalNumber ? self.totalNumber : self.props.rowLimit;
-                self.pageCount = Math.ceil(self.totalNumber / self.props.rowLimit);
-            }
-
-            if (firstCall) self.makeView(); else self.updateTable();
-
-            self.showLoader(false);
-        }, 10);
-    };
-
     $.selectRows = function (ev, row, all) {
 		
 		if (all && !this.props.multiSelection) return;
@@ -1176,6 +1174,8 @@ function nmdrTable(id) {
 
     $.openRowMenu = function (ev, row, cell) {
 
+		if (this.props.menuColumn == -1 && !this.props.showRowMenu) return;
+		
 		for (var mc in this.menuCommands) {
 			this.menuCommands[mc].targetRow = row;
 			this.menuCommands[mc].param = cell ? cell.getAttribute("param") : "";
@@ -1345,8 +1345,8 @@ function nmdrTable(id) {
 		if (c && c.id.indexOf("nmdrTB_body_td_") != -1) {
 			var s = c.id.substr(c.id.lastIndexOf("_") + 1).split("x");
 			if (s.length == 2) {
-				this.selectRows(ev, s[0]);
-				this.openRowMenu(ev, s[0], c); 
+				this.selectRows(ev, parseInt(s[0]));
+				this.openRowMenu(ev, parseInt(s[0]), c); 
 			}
 		}
 	};
